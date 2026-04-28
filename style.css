@@ -1,1 +1,65 @@
+/* style.css : Feuille de style principale
+Projet : Web
+Auteurs : COLONNA D'ISTRIA Joseph
+          ASSUIED Gabriel
+Style global, typographie, navigation, thèmes */
 
+/*Imports de polices Google Fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* Variables CSS définies*/
+
+:root {
+    --couleur-fond: #f5f0e8;
+    --couleur-fond-secondaire: #ede8da;
+    --couleur-texte: #1a1208;
+    --couleur-texte-secondaire: #c4a35a;
+    --couleur-bordure: #c9b99a;
+    --couleur-accent: #8b1a1a;
+    --couleur-accent-secondaire: #c4a35a;
+    --couleur-carte: #faf6ef;
+    --ombre: rgba(26, 18, 8, 0.12);
+    --police-titre: 'Playfair Display', Georgia, serif;
+    --police-corps: 'EB Garamond', Georgia, serif;
+    --police-code: 'Courier Prime', 'Courier New', monospace;
+    --transition: 0.3s ease;
+}
+
+/* Thème sombre (classe .theme-sombre) */
+
+.theme-sombre {
+    --couleur-fond: #0d0d0d;
+    --couleur-fond-secondaire: #1a1a1a;
+    --couleur-texte: #e8dcc8;
+    --couleur-texte-secondaire: #b0a080;
+    --couleur-accent: #c4785a;
+    --couleur-accent-secondaire: #8b6a3a;
+    --couleur-bordure: #3a3020;
+    --couleur-carte: #161410;
+    --ombre: rgba(0, 0, 0, 0.5);
+}
+
+.theme-principal {
+    --couleur-fond: #d4b896;
+    --couleur-fond-secondaire: #c4a882;
+    --couleur-texte: #2a1800;
+    --couleur-texte-secondaire: #5a3800;
+    --couleur-accent: #6b2c00;
+    --couleur-accent-secondaire: #8b5a00;
+    --couleur-bordure: #a07840;
+    --couleur-carte: #dcc8aa;
+    --ombre: rgba(42, 24, 0, 0.2);
+}
+
+/*RESET CSS*/
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 18px;
+}
