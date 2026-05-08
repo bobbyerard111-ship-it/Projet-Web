@@ -59,7 +59,78 @@ Style global, typographie, navigation, thèmes */
     padding: 0;
 }
 
+/* Base */
+
 html {
     scroll-behavior: smooth;
     font-size: 18px;
+}
+
+body {
+    background-color: var(--couleur-fond);
+    color: var(--couleur-texte);
+    font-family: var(--police-corps);
+    font-size: 1rem;
+    line-height: 1.75;
+    transition: background-color var(--transition), color var(--transition);
+    min-height: 100vh;
+}
+/* Typographie générale */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--police-titre);
+    line-height: 1.2;
+    color: var(--couleur-texte);
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-style: italic
+}
+
+h4 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+p {
+    margin-bottom: 1.2rem;
+}
+
+a {
+    color: var(--couleur-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--transition), opacity var(--transition);
+}
+
+a:hover {
+    opacity: 0.75; 
+}
+
+em {
+    font-style: italic;
+}
+
+strong {
+    font-weight: 700;
+}
+
+.liste-style {
+    list-style: none;
+    margin-left: 0;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
