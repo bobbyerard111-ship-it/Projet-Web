@@ -26,6 +26,7 @@
             <section id="presentation" aria-labelledby="titre-présentation">
                 <div class="oeuvre-meta">
                     <div class="oeuvre-affiche">
+                        <!-- Couverture illustrée en SVG inline -->
                         <svg class="couverture-livre" viewBox="0 0 180 250" xmlns="http://www.w3.org/svg" role="img" aria-label="Couverture illustrée du roman Le Maître et Marguerite">
                             <rect width="180" height="250"  fill="#5a0a0a"/>
                             <rect x="0" y="0" width="15" height="250" fill="#3a0505"/>
@@ -46,8 +47,97 @@
                              <text x="90" y="243" font-family="Georgia, serif" font-size="8" fill="#888" text-anchor="middle">Boulgakov</text>
                         </svg>
                     </div>
+                    <div class="oeuvre-info">
+                        <h2 id="titre-présentation">Le Maître et Marguerite</h2>
+                        <p class="auteur-ligne">Mikhaïl Afanassievitch Boulgakov (1891–1940)</p>
+                        <span class="badge-ville">📍 Moscou</span>
+                        <div class="fiche-info">
+                            <dl>
+                                <dt>Genre</dt>  <dd>Roman fantastique, satire politique</dd>
+                                <dt>Langue</dt> <dd>Russe</dd>
+                                <dt>Rédigé</dt> <dd>1928–1940 (douze années de travail)</dd>
+                                <dt>Publié</dt> <dd>1966–1967 (<em>Moskva</em>, expurgé) · 1973 (intégral)</dd>
+                                <dt>Lieu</dt>   <dd>Moscou soviétique, années 1930 / Jérusalem antique</dd>
+                                <dt>Thèmes</dt> <dd>Bien et mal, censure, amour absolu, identité artistique</dd>
+                            </dl>
+                        </div>
+                        <p>
+                            Roman testament de Boulgakov, <em>Le Maître et Marguerite</em> entremêle deux récits : la visite du diable (Woland) à Moscou soviétique, et l'histoire de Ponce Pilate et Yeshoua Ha-Nozri à Jérusalem. C'est l'une des œuvres les plus célèbres de la littérature russe du XX<sup>e</sup> siècle.
+                        </p>
+                        <p>
+                            En savoir plus :
+                            <a href="https://fr.wikipedia.org/wiki/Le_Ma%C3%AEtre_et_Marguerite" target="_blank" rel="noopener">Article Wikipédia</a>
+                            <a href="https://www.babelio.com/livres/Boulgakov-Le-Maitre-et-Marguerite/4328" target="_blank" rel="noopener">Fiche Babelio</a>
+                        </p>
+                    </div>
                 </div>
             </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="ville" aria-labelledby="titre-ville">
+                <h2 id="titre-ville">Moscou : une ville sous le regard du diable</h2>
+                <p>
+                    La Moscou de Boulgakov est celle des années 1930 stalinistes : ville de délations,
+                    d'<span class="mot-cle" data-def="Unions d'écrivains soviétiques contrôlant la publication des œuvres littéraires">unions d'écrivains bureaucratisées</span>,
+                    d'<span class="mot-cle" data-def="Appartements communautaires où plusieurs familles cohabitaient en URSS">appartements communaux</span>
+                    surpeuplés et de mensonges institutionnalisés. C'est précisément dans cette ville que
+                    Boulgakov lâche Woland et sa suite pour en révéler l'hypocrisie.
+                </p>
+
+                <!-- MONTRER/MASQUER : les lieux réels -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                    Les lieux réels de Moscou dans le roman
+                    <span class="icone-toggle">+</span>
+                    </button>
+                    <div class="contenu-toggle">
+                    <p>
+                        Boulgakov ancre son récit dans une topographie moscovite précise et vérifiable.
+                        Plusieurs lieux réels sont identifiables :
+                    </p>
+                    <ul class="liste-style">
+                        <li><strong>Les étangs du Patriarche</strong> — où Berlioz est décapité par le tramway</li>
+                        <li><strong>La maison Griboïedov</strong> — siège satirique de l'union des écrivains</li>
+                        <li><strong>L'appartement n°50 de la rue Sadovaïa</strong> — repaire de Woland</li>
+                        <li><strong>Le Bolchoï</strong> — lieu du spectacle de magie noire</li>
+                        <li><strong>La clinique psychiatrique</strong> — où finissent les témoins de Woland</li>
+                    </ul>
+                    <p>
+                        La <a href="https://fr.wikipedia.org/wiki/Appartement_Boulgakov"
+                            target="_blank" rel="noopener">maison Boulgakov</a>
+                        (musée aujourd'hui) se trouve au 10, rue Bolchaïa Sadovaïa — l'appartement du diable.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- MONTRER/MASQUER : contexte historique -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                    Boulgakov sous Staline : écrire sans pouvoir publier
+                    <span class="icone-toggle">+</span>
+                    </button>
+                    <div class="contenu-toggle">
+                    <p>
+                        Boulgakov écrivit ce roman en sachant qu'il ne serait probablement jamais publié
+                        de son vivant. En 1930, désespéré par les interdictions répétées, il brûla une
+                        première version du manuscrit. Il le reconstitua et continua de l'enrichir jusqu'à
+                        sa mort en 1940. Sa femme, Elena Boulgakova, conserva le manuscrit et se battit
+                        vingt-six ans pour sa publication.
+                    </p>
+                    <ol class="liste-style">
+                        <li>1928 — Boulgakov commence l'écriture du roman</li>
+                        <li>1930 — Il brûle le premier manuscrit après une nouvelle interdiction</li>
+                        <li>1940 — Il meurt sans avoir vu son roman publié</li>
+                        <li>1966 — Première publication expurgée dans la revue <em>Moskva</em></li>
+                        <li>1973 — Publication intégrale pour la première fois</li>
+                    </ol>
+                    </div>
+                </div>
+                <blockquote>
+                    Les lâches sont les plus grands pécheurs de la terre.
+                    <cite>— Yeshoua, <em>Le Maître et Marguerite</em>, Mikhaïl Boulgakov</cite>
+                </blockquote>
+            </section>
+            <hr class="ligne-deco-longue" />
         </main>
     </body>
 </html>
