@@ -127,10 +127,325 @@ strong {
     font-weight: 700;
 }
 
+.ligne-deco {
+    border: none;
+    border-top: 2px solid var(--couleur-accent);
+    margin: 2rem auto;
+    width: 60px;
+}
+
+.ligne-deco-longue {
+    border: none;
+    border-top: 1px solid var(--couleur-bordure);
+    margin: 2.5rem 0;
+}
+
+.surtitre {
+    font-family: var(--police-code);
+    font-size: 0.75rem;
+    letter-spacing: 0.25rem;
+    text-transform: uppercase;
+    color: var(--couleur-texte-secondaire);
+    margin-bottom: 1.2rem;
+}
+
+header.site-header {
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    border-bottom: 1px solid var(--couleur-bordure);
+}
+
+header.site-header::after {
+    content: '❧';
+    display: block;
+    font-size: 1.8rem;
+    color: var(--couleur-accent);
+    margin-top: 1.5rem;
+    opacity: 0.7;
+}
+
+header.site-header h1 {
+    font-size: 6rem;
+    line-height: 1.05;
+    letter-spacing: -0.02rem;
+}
+
+.sous-titre-header {
+    font-size: 1.1rem;
+    color: var(--couleur-texte-secondaire);
+    max-width: 550px;
+    margin: 1.5rem auto 0;
+    font-style: italic;
+}
+
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.oeuvre-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--couleur-bordure);
+}
+
+.oeuvre-affiche {
+    flex: 0 0 220px;
+    text-align: center;
+}
+
+.couverture-livre {
+    width: 180px;
+    height: 250px;
+    border: 2px solid var(--couleur-bordure);
+    display: inline-block;
+    background-color: var(--couleur-fond-secondaire);
+    box-shadow: 6px 6px 0 var(--couleur-bordure);
+}
+
+.oeuvre-info {
+    flex: 1; 
+    min-width: 260px;
+}
+
+.oeuvre-info h2 {
+    font-size: 2rem;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.oeuvre-info .auteur-ligne {
+    font-family: var(--police-code);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--couleur-texte-secondaire);
+    margin-bottom: 1.5rem;
+}
+
+.badge-ville {
+    display: inline-block;
+    background-color: var(--couleur-accent);
+    color: var(--couleur-fond);
+    font-family: var(--police-code);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.fiche-info {
+    background-color: var(--couleur-fond-secondaire);
+    border-left: 3px solid var(--couleur-accent);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.fiche-info dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.4rem 1.5rem;
+}
+
+.fiche-info dt {
+    font-weight: 700;
+    font-family: var(--police-code);
+    font-size: 0.8rem;
+    text-transform: uppercase; 
+    letter-spacing: 0.08em;
+    color: var(--couleur-texte-secondaire);
+}
+
+footer#pied-de-page {
+    background-color: var(--couleur-texte);
+    color: var(--couleur-fond);
+    text-align: center;
+    padding: 2.5rem 2rem;
+    font-family: var(--police-code);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    margin-top: 5rem;
+}
+
+footer#pied-de-page a {
+    color: var(--couleur-accent-secondaire);
+}
+
+footer#pied-de-page .footer_liens {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.bloc-extensible {
+    border: 1px solid var(--couleur-bordure);
+    margin: 1.5rem 0;
+}
+
+.btn-toggle {
+    width: 100%;
+    background-color: var(--couleur-fond-secondaire);
+    border: none;
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-family: var(--police-titre);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--couleur-texte);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color var(--transition);
+}
+.btn-toggle:hover {
+    background-color: var(--couleur-bordure); 
+}
+
+.btn-toggle .icone-toggle {
+    font-size: 1.2rem;
+    font-style: normal; 
+    transition: transform var(--transition);
+    color: var(--couleur-accent);
+}
+
+.btn-toggle.ouvert .icone-toggle {
+    transform: rotate(45deg); 
+}
+
+.contenu-toggle {
+    display: none;
+    padding: 1.5rem;
+    background-color: var(--couleur-carte);
+    border-top: 1px solid var(--couleur-bordure);
+}
+
+.contenu-toggle.visible {
+    display: block;
+    animation: apparition 0.3s ease; 
+}
+
 .liste-style {
     list-style: none;
-    margin-left: 0;
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+    margin: 1rem 0 1.5rem 1.5rem;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes de largeur égale */
+    gap: 1.5rem 2rem; /* Espacement vertical et horizontal */
+    align-items: start; /* Aligne les éléments en haut */
+}
+
+/* Style pour les éléments de liste */
+.liste-style li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem; /* Espace pour le marqueur */
+    position: relative;
+}
+
+/* Marqueurs personnalisés pour les listes non ordonnées (losanges) */
+ul.liste-style li::before {
+    content: "◆  ";
+    color: var(--couleur-accent);
+    font-size: 0.7em;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* Style pour les listes ordonnées (numéros) */
+ol.liste-style {
+    counter-reset: item;
+}
+
+ol.liste-style li {
+    counter-increment: item;
+}
+
+ol.liste-style li::before {
+    content: counter(item) ".";
+    color: var(--couleur-accent);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+table.tableau-style {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+}
+
+table.tableau-style caption {
+    font-family: var(--police-code);
+    font-size: 0.75rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase; 
+    color: var(--couleur-texte-secondaire);
+    margin-bottom: 0.8rem;
+    text-align: left;
+}
+
+table.tableau-style th {
+    background-color: var(--couleur-texte);
+    color: var(--couleur-fond);
+    padding: 0.8rem 1.2rem;
+    text-align: left;
+    font-family: var(--police-code);
+    font-size: 0.78rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+}
+
+table.tableau-style td {
+    padding: 0.8rem 1.2rem;
+    border-bottom: 1px solid var(--couleur-bordure);
+    vertical-align: top;
+}
+
+table.tableau-style tr:nth-child(even) td {
+    background-color: var(--couleur-fond-secondaire);
+}
+
+table.tableau-style tr:hover td {
+    background-color: var(--couleur-carte);
+}
+
+blockquote {
+    border-left: 4px solid var(--couleur-accent);
+    margin: 2rem 0; padding: 1rem 2rem; background-color:
+    var(--couleur-fond-secondaire);
+    font-style: italic;
+    font-size: 1.05rem;
+    position: relative;
+}
+
+blockquote::before {
+    content: '“';
+    font-family: var(--police-titre);
+    font-size: 4rem; color: var(--couleur-accent);
+    opacity: 0.3;
+    position: absolute;
+    top: -0.5rem;
+    left: 0.5rem;
+    line-height: 1;
+}
+
+blockquote cite {
+    display: block;
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    font-style: normal;
+    color: var(--couleur-texte-secondaire);
+    font-family: var(--police-code);
 }
