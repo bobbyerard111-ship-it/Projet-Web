@@ -48,5 +48,47 @@ function initialiserBlocsExtensibles() {
   });
 }
 
-// Initialisation au chargement de la page
-document.addEventListener('DOMContentLoaded', initialiserBlocsExtensibles);
+/* POPUP D'ACCUEIL */
+
+function afficherPopup() {
+    // Vérifie si la clé 'popupVue' existe dans le sessionStorage (ce qui indiquerait que le popup a déjà été vu)
+    if (sessionStorage.getItem('popupVue')) return;
+    // Récupère l'élémet HTML avec l'ID 'overlay-popup' (le conteneur du popup)
+    var overlay = document.getElementById('overlay-popup');
+    // Si l'élément existe, on affiche en définissant son stule 'display sur 'flex'
+    if (overlay) {
+        overlay.style.display = 'flex'
+    }
+}
+
+function fermerPopup() {
+    // Récupère l'élémet HTML avec l'ID 'overlay-popup' (le conteneur du popup)
+    var overlay = document.getElementById('overlay-popup');
+    if (overlay) {
+        // Masque le popup en définissant son style 'display' sur 'none'
+        overlay.style.display = 'none';
+        // Enregistre dans le sessionStorage que la popup a été vue (valeur '1')
+        sessionStorage.setItem('popupVue', '1');
+    }
+}
+
+// Initialisation globale au chargement de la page (chargement compet du DOM)
+document.addEventListener('DOMContentLoaded', function() {
+    afficherPopup();
+
+    // Récupère le bouton de fermeture du popup par son ID
+    var btnFermer = document.getElementById('btn-fermer-popup');
+    if (btnFermer) {
+        // Ajoute un écouteur d'événerment pour fermer le popup au clic sur le bouton
+        btnFermer.addEventListener('click', fermerPopup);
+    }
+    // Récupère à nouveau l'élément overlay du popup
+    var overlay = document.getElementById('overlay-popup');
+    if (overlay) {
+        // Ajoute un écouteur d'événement pour fermer le popup si on clique en dehors de son contenu
+        overlay.addEventListener('click', function(e) {
+            // Vérifie si le clic a été effectué directement sur l'overlay (élément de la page qui n'est pas le popup)
+            if (e.target === overlay) fermerPopup();
+        });
+    }
+})

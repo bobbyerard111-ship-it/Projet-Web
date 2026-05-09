@@ -449,3 +449,63 @@ blockquote cite {
     color: var(--couleur-texte-secondaire);
     font-family: var(--police-code);
 }
+
+.overlay-popup {
+    display: none;
+}
+
+#overlay-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fondu {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+
+#popup-contenu {
+    background-color: var(--couleur-fond);
+    border: 2px solid var(--couleur-bordure);
+    max-width: 480px;
+    width: 90%;
+    padding: 3rem;
+    text-align: center;
+    box-shadow: 8px 8px 0 var(--couleur-bordure);
+}
+
+#popup-contenu h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+#popup-contenu p {
+    color: var(--couleur-texte-secondaire);
+    margin-bottom: 1.5rem;
+}
+
+#btn-fermer-popup {
+    background-color: var(--couleur-texte);
+    color: var(--couleur-fond);
+    border: none;
+    font-family: var(--police-code);
+    font-size: 0.78rem;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+    padding: 0.7rem 2rem;
+    cursor: pointer;
+    transition: opacity var(--transition);
+}
+
+#btn-fermer-popup:hover {
+    opacity: 0.8;
+}
