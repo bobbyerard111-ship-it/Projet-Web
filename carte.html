@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Carte Interactive de l'Europe - Projet NSI</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body class="page-carte">
+
+    <!-- ÉCRAN DE CHARGEMENT -->
+    <div id="ecran-chargement">
+        <p class="chargement-titre">Littérature & Villes</p>
+        <p class="chargement-sous-titre">Cartographie littéraire de l'Europe</p>
+        <div class="barre-chargement-fond">
+            <div class="barre-chargement-remplissage"></div>
+        </div>
+    </div>
+
+    <!-- OVERLAY DE TRANSITION AU CLIC -->
+    <div id="overlay-transition">
+        <div class="texte-transition">
+            <p>Navigation vers</p>
+            <h2 id="transition-nom-ville">—</h2>
+        </div>
+    </div>
+
+    <!-- TOOLTIP -->
+    <div id="tooltip-ville">
+        <div class="tooltip-interieur">
+            <p class="tooltip-ville-nom" id="tt-nom">Dublin</p>
+            <p class="tooltip-ville-pays" id="tt-pays">Irlande</p>
+            <p class="tooltip-ville-oeuvre" id="tt-oeuvre">Ulysse</p>
+            <p class="tooltip-ville-auteur" id="tt-auteur">James Joyce, 1922</p>
+            <p class="tooltip-clic-hint">↵ Cliquer pour explorer</p>
+        </div>
+    </div>
+
+    <!-- CONTENEUR CARTE -->
+    <div id="carte-conteneur">
+        <!-- Navigation -->
+        <nav id="carte-nav">
+            <a class="nav-logo" href="../index.html">← Littérature & Villes</a>
+            <ul class="nav-liens">
+                <li><a href="moscou.html">Moscou</a></li>
+                <li><a href="saint-petersbourg.html">Saint-Pétersbourg</a></li>
+                <li><a href="dublin.html">Dublin</a></li>
+                <li><a href="comparaison.html">Comparaison</a></li>
+                <li><a href="glossaire.html">Glossaire</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </nav>
+
+        <!-- Canvas principal -->
+        <canvas id="carte-canvas"></canvas>
+
+        <!-- Titre bas de page -->
+        <div id="titre-carte">
+            <h1>Atlas Littéraire de l'Europe</h1>
+            <p>Six villes · Six œuvres · Un voyage</p>
+        </div>
+
+        <!-- HUD coordonnées -->
+        <div id="hud-coordonnees">
+            <span id="hud-lat">48°52′N</span><br/>
+            <span id="hud-lon">002°21′E</span><br/>
+            EUROPE OCCIDENTALE
+        </div>
+
+        <!-- Compteur villes -->
+        <div id="compteur-villes">
+            Villes littéraires<br/>
+            <span id="ville-active-nom">—</span><br/>
+            <span style="color:#3a3020">06 / 06 cartographiées</span>
+        </div>
+    </div>
+</html>

@@ -72,6 +72,149 @@ function fermerPopup() {
     }
 }
 
+// CARTE INTERACTIVE
+
+//Données des villes: coordonnée géographiques + données littérares
+var VILLES = [
+    {
+        id: "dublin",
+        nom: "Dublin",
+        pays: "Irlande",
+        lat: 53.35,
+        lon: -6.26,
+        oeuvre: "Ulysse",
+        auteur: "James Joyce, 1922",
+        url: "dublin.html",
+        couleur: "#5a9a6a"
+    },
+    {
+        id: "moscou",
+        nom: "Moscou",
+        pays: "Russie",
+        lat: 55.75,
+        lon: 37.62,
+        oeuvre: "Le Maître et Marguerite",
+        auteur: "Mikhaïl Boulgakov, 1966",
+        url: "moscou.html",
+        couleur: "#c4a35a"
+    },
+    {
+        id: "saint-petersbourg",
+        nom: "Saint-Pétersbourg",
+        pays: "Russie",
+        lat: 59.94,
+        long: 30.31,
+        oeuvre: "Crime et Châtiment",
+        auteur: "Fyodor Dostoïevsky, 1866",
+        couleur: "#8bb0d4"
+    },
+    {
+        id: "londres",
+        nom: "Londres",
+        pays: "Angleterre",
+        lat: 51.51,
+        lon: -0.13,
+        oeuvre: "Page à venir",
+        auteur: "—",
+        url: "londres.html",
+        couleur: "#d4a0b0"
+    },
+    {
+        id: "paris",
+        nom: "Paris",
+        pays: "France",
+        lat: 48.85,
+        lon: 2.35,
+        oeuvre: "Page à venir",
+        auteur: "—",
+        url: "paris.html",
+        couleur: "#a0b4d4"
+    },
+    {
+        id: "prague",
+        nom: "Prague",
+        pays: "République tchèque",
+        lat: 50.08,
+        lon: 14.44,
+        oeuvre: "Page à venir",
+        auteur: "—",
+        url: "prague.html",
+        couleur: "#c4a35a"
+    }
+];
+
+var CARTE = {
+    lonMin: -30,    // bord gauche
+    lonMax: 60,     // bord droit
+    latMin: 30,     // bord bas
+    latMax: 72,     // bord gauche
+};
+
+var etat = {
+    canvas: null,
+    contexte: null,
+    largeur: 0,
+    hauteur: 0,
+    villeActive: null,   // ville survolée
+    particule: [],       // Particules flottantes
+    tempsDebut: null,   // pour animations temporelles
+    rayonPulsation: {}, // RAYON ANIMES PAR VILLE
+    echelle: 1,         // pour animation d'entrée
+    chargementTermine: false
+
+};
+
+function geoVersPixel(lat, lon, largeur, hauteur) {
+  // Calcul de la coordonnée x en pixels :
+  // - (lon - CARTE.lonMin) : calcule la distance entre la longitude du point et la longitude minimale de la carte.
+  // - (CARTE.lonMax - CARTE.lonMin) : calcule la largeur totale de la carte en degrés de longitude.
+  // - Le rapport entre ces deux valeurs donne la position relative du point sur l'axe horizontal (entre 0 et 1).
+  // - On multiplie par "largeur" pour obtenir la coordonnée x en pixels.
+  var x = ((lon - CARTE.lonMin) / (CARTE.lonMax - CARTE.lonMin)) * largeur;
+
+  // Calcul de la coordonnée y en pixels :
+  // - (CARTE.latMax - lat) : calcule la distance entre la latitude maximale de la carte et la latitude du point. 
+  // - (CARTE.latMax - CARTE.latMin) : calcul la hauteur totale de la carte en degrés de latitude.
+  // - Le rapport entre ces deux valeurs donne la position relative du point sur l'axe vertical (entre 0 et 1).
+  // - On multiplie par "hauteur" pour obtenir la coordonnée y en pixels.
+  var y = ((CARTE.latMax - lat) / (CARTE.latMax - CARTE.latMin)) * hauteur;
+
+  // Retourne un objet avec les coordonnées x et y en pixels.
+  return { x: x, y: y };
+}
+
+function initialiserCanvas() {
+    // Récupère l'élément HTML du canvas avec l'ID 'carte-canvas' et le stocke dans l'objet 'etat' (défini ci-dessus)
+    etat.canvas = document.getElementById('carte-canvas');
+    // Récupère le contexte de rendu 2D du canvas pour dessiner dessus
+    etat.contexte = etat.canvas.getContext('2d');
+    redimensionnerCanvas();
+    // Ajoute un écouteur d'événement pour redimensionner le canvas à chaque fois que la fenêtre est redimensionnée par l'utilisateur
+    window.addEventListener('resize', redimensionnerCanvas);
+}
+ 
+function redimensionnerCanvas() {
+    // Stocke la largeur de la fenêtre dnas l'objet 'etat'
+    etat.largeur = window.innerWidth;
+    // Stocke la hauteur de la fenêtre dans l'objet 'etat'
+    etat.hauteur = window.innerHeight;
+    // Définit la largeur du canvas égal à la largeur de la fenêtre
+    etat.canvas.width = etat.largeur;
+    // Définit la hauteur du canvas égal à la hauteur de la fenêtre
+    etat.canvas.height = etat.hauteur;
+    // Initialisation des rayons de pulsations pour chaque ville
+    // Parcourt chaque ville dans la table Ville définie ci-dessus
+    VILLES.forEach(function(v) {
+        // Si la ville n'a pas encore de propriété `rayonPulsation` dans l'objet `etat`
+        if (!etat.rayonPulsation[v.id]) {
+            // Initialise un objet pour cette ville avec :
+            // - 'r' : rayon de la pulsation (initialisé à 0)
+            // - 'alpha' : transparence de la pulsation (initialisée à 0)
+            // - 'actif' : état de la pulsation (initialisé à false)
+            etat.rayonPulsation[v.id] = {r: 0, alpha: 0, actif: false};
+        };
+    });
+}
 // Initialisation globale au chargement de la page (chargement compet du DOM)
 document.addEventListener('DOMContentLoaded', function() {
     afficherPopup();
