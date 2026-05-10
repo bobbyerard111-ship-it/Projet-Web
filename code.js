@@ -266,6 +266,7 @@ function demarrerChargement() {
 document.addEventListener('DOMContentLoaded', function() {
     demarrerChargement();
     afficherPopup();
+    initialiserBlocsExtensibles();
 
     // Récupère le bouton de fermeture du popup par son ID
     var btnFermer = document.getElementById('btn-fermer-popup');
