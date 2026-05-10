@@ -156,7 +156,7 @@ var etat = {
     largeur: 0,
     hauteur: 0,
     villeActive: null,   // ville survolée
-    particule: [],       // Particules flottantes
+    particules: [],       // Particules flottantes
     tempsDebut: null,   // pour animations temporelles
     rayonPulsation: {}, // RAYON ANIMES PAR VILLE
     echelle: 1,         // pour animation d'entrée
@@ -215,8 +215,56 @@ function redimensionnerCanvas() {
         };
     });
 }
+
+function genererParticules() {
+    // Initialise un tableau vide pour stocker les particules dans l'objet 'etat'
+    etat.particules = [];
+
+    // Calcule le nombre de particules en fonction de la surface de la fenêtre (largeur × hauteur)
+    // Divise par 8000 pour ajuster la densité (plus la fenêtre est grande, plus il y aura de particules)
+    var nb = Math.floor((etat.largeur * etat.hauteur) / 8000);
+
+    // Boucle pour créer 'nb' particules
+    for (var i = 0; i < nb; i++) {
+        // Ajoute une nouvelle particule au tableau 'etat.particules' avec des propriétés aléatoires
+        etat.particules.push({
+            // Position horizontale aléatoire entre 0 et la largeur du canvas
+            x: Math.random() * etat.largeur,
+
+            // Position verticale aléatoire entre 0 et la hauteur du canvas
+            y: Math.random() * etat.hauteur,
+
+            // Rayon de la particule aléatoire entre 0.2 et 1.4 (0.2 + 1.2)
+            r: Math.random() * 1.2 + 0.2,
+
+            // Transparence (alpha) aléatoire entre 0.1 et 0.6 (0.1 + 0.5)
+            alpha: Math.random() * 0.5 + 0.1,
+
+            // Vitesse de déplacement aléatoire entre 0.05 et 0.2 (0.05 + 0.15)
+            vitesse: Math.random() * 0.15 + 0.05,
+
+            // Phase initiale aléatoire pour une animation cyclique (entre 0 et 2π)
+            phase: Math.random() * Math.PI * 2
+        });
+    }
+}
+
+function demarrerChargement() {
+    if (window.location.pathname.includes("carte.html")) {
+        setTimeout(function() {
+            var ecran = document.getElementById('ecran-chargement');
+            var conteneur = document.getElementById('carte-conteneur');
+
+            ecran.classList.add('masque');
+            conteneur.classList.add('visible');
+            etat.chargementTermine = true;
+        }, 2600)
+    }
+}
+
 // Initialisation globale au chargement de la page (chargement compet du DOM)
 document.addEventListener('DOMContentLoaded', function() {
+    demarrerChargement();
     afficherPopup();
 
     // Récupère le bouton de fermeture du popup par son ID

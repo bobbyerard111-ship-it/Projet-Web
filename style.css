@@ -624,13 +624,13 @@ body.page-carte {
 
 #carte-nav .nav-logo {
     font-family: 'Playfair Display', Georgia, serif;
-      font-style: italic;
-      font-size: 1rem;
-      color: #c4a35a;
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      opacity: 0;
-      animation: glissementGauche 0.7s ease 2.8s forwards;
+    font-style: italic;
+    font-size: 1rem;
+    color: #c4a35a;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: glissementGauche 0.7s ease 2.8s forwards;
 }
 
 #carte-nav .nav-liens {
