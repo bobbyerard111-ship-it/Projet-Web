@@ -7,11 +7,236 @@
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body class="page-oeuvre">
+        <!-- POPUP (contrôler par sessionStorage via code.js)-->
+         <div id="overlay-popup" role="dialog" aria-modal="true" aria-labelledby="popup-titre">
+            <div id="popup-contenu">
+                <p class="surtitre">Vous lisez</p>
+                <h2 id="popup-titre">Paris</h2>
+                <p>Ville de la ruse et du diable — découvrez comment Boulgakov a transformé Moscou en personnage.</p>
+                <button id="btn-fermer-popup">Continuer</button>
+            </div>
+         </div>
         <header class="site-header">
             <p class="surtitre">Paris · France</p>
             <h1>La Peau de Chagrin</h1>
             <p class="sous-titre-header">Honoré de Balzac · Publié en 1841</p>
         </header>
+         <main>
+            <nav aria-label="Navigation dans la page" style="margin-bottom: 2rem;">
+                <p class="surtitre">Sur cette page :</p>
+                <ul class="liste-style">
+                    <li><a href="#presentation">Présentation</a></li>
+                    <li><a href="#ville">Paris dans le roman</a></li>
+                    <li><a href="#personnages">Personnages</a></li>
+                    <li><a href="#citations">Citations</a></li>
+                    <li><a href="#lieux">Lieux clés</a></li>
+                </ul>
+            </nav>
+            <section id="presentation" aria-labelledby="titre-présentation">
+                <div class="oeuvre-meta">
+                    <div class="oeuvre-affiche">
+                        <!-- Couverture illustrée en SVG inline -->
+                        <svg class="couverture-livre" viewBox="0 0 180 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Couverture illustrée du roman Le Maître et Marguerite">
+                            <rect width="180" height="250"  fill="#5a0a0a"/>
+                            <rect x="0" y="0" width="15" height="250" fill="#3a0505"/>
+                            <!-- Lune -->
+                             <circle cx="120" cy="60" r="35" fill="#f5c832" opacity="0.9"/>
+                             <circle cx="108" cy="55" r="30" fill="#5a0a0a"/>
+                            <!-- Chat de Béhémoth -->
+                             <ellipse cx="90" cy="170" rx="25" ry="20" fill="#1a0505"/>
+                             <ellipse cx="90" cy="148" rx="15" ry="16" fill="#1a0505"/>
+                             <polygon points="78,135 74,122 83,130" fill="#1a0505"/>
+                             <polygon points="102,135 106,122 97,130" fill="#1a0505"/>
+                             <circle cx="85" cy="147" r="3" fill="#f5c842"/>
+                             <circle cx="95" cy="147" r="3" fill="#f5c842"/>
+                             <path d="M 70 185 Q 80 200 90 190 Q 100 200 110 185" fill="none" stroke="#1a0505" stroke-width="4"/>
+                            <!-- Titre -->
+                             <text x="90" y="215" font-family="Georgia, serif" font-size="10" fill="#c4a35a" text-anchor="middle">Le Maître</text>
+                             <text x="90" y="228" font-family="Georgia, serif" font-size="10" fill="#c4a35a" text-anchor="middle">&amp; Marguerite</text>
+                             <text x="90" y="243" font-family="Georgia, serif" font-size="8" fill="#888" text-anchor="middle">Boulgakov</text>
+                        </svg>
+                    </div>
+                    <div class="oeuvre-info">
+                        <h2 id="titre-présentation">La Peau de Chagrin</h2>
+                        <p class="auteur-ligne">Honoré de Balzac (1891–1940)</p>
+                        <span class="badge-ville">Paris</span>
+                        <div class="fiche-info">
+                            <dl>
+                                <dt>Genre</dt>  <dd>Roman philosophique et fantastique</dd>
+                                <dt>Langue</dt> <dd>Français</dd>
+                                <dt>Rédigé</dt> <dd>1830–1831 (1 an de travail)</dd>
+                                <dt>Publié</dt> <dd>1831</dd>
+                                <dt>Lieu</dt>   <dd>Paris sous la Restauration, années 1830</dd>
+                                <dt>Thèmes</dt> <dd>Désir humain, ambition sociale, consommation de la vie, fatalité et mort</dd>
+                            </dl>
+                        </div>
+                        <p>
+                             Roman philosophique et fantastique de Balzac, <em>La Peau de chagrin</em> raconte le destin tragique de Raphaël de Valentin et d’une peau magique qui exauce les désirs au prix de la vie de son propriétaire.</em>  
+                        <p>
+                            En savoir plus :
+                            <a href="https://fr.wikipedia.org/wiki/La_Peau_de_chagrin" target="_blank" rel="noopener">Article Wikipédia</a>
+                            <a href="https://www.espacefrancais.com/balzac-la-peau-de-chagrin/" target="_blank" rel="noopener">Fiche dans un espace de français</a>
+                            <a href="https://cours-et-fiches.com/livres/la-peau-de-chagrin-balzac/" target="_blank" rel="noopener">Fiche sur Peau de Chagrin</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="ville" aria-labelledby="titre-ville">
+                <h2 id="titre-ville">Paris : une ville gouvernée par le désir et l'ambition</h2>
+                <p>
+                    Le Paris de Balzac est celui du XIX<sup>e</sup> siècle : ville du
+                    <span class="mot-cle" data-def="Mode de vie luxueux des classes riches et aristocratiques">luxe</span>,
+                    de l'
+                    <span class="mot-cle" data-def="Volonté de réussir socialement et de devenir puissant ou riche">ambition sociale</span>
+                    et des plaisirs, mais aussi de la pauvreté et de la misère. Entre salons aristocratiques,
+                    maisons de jeu et boutiques mystérieuses, Balzac fait de Paris un lieu où
+                    le désir et l'argent gouvernent la vie des hommes.
+                </p>
+
+                <!-- MONTRER/MASQUER : les lieux réels -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                    Les lieux réels de Paris dans le roman
+                    <span class="icone-toggle">+</span>
+                    </button>
+                    <div class="contenu-toggle">
+                    <p>
+                        Balzac ancre son récit dans une topographie parisienne précise et réaliste.
+                        Plusieurs lieux emblématiques de Paris sont évoqués dans le roman :
+                    </p>
+                    <ul class="liste-style">
+                        <li><strong>La boutique de l'antiquaire</strong> — lieu où Raphaël découvre la peau de chagrin</li>
+                        <li><strong>Les salons du faubourg Saint-Germain</strong> — monde de l'aristocratie parisienne</li>
+                        <li><strong>Le Palais-Royal</strong> — où Raphaël fréquente les maisons de jeu</li>
+                        <li><strong>La Seine</strong> — où Raphaël songe au suicide</li>
+                        <li><strong>Le Jardin des Tuileries</strong> — où Raphaël observe la société parisienne</li>
+                    </ul>
+                    <p>
+                        Le <a href="https://fr.wikipedia.org/wiki/Palais-Royal"
+                            target="_blank" rel="noopener">Palais Royal</a>
+                        un des lieux emblématiques du roman, associé aux maisons de jeu fréquentées par Raphaël au début de l'histoire.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- MONTRER/MASQUER : contexte historique -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                        Balzac et le succès de La Peau de chagrin
+                        <span class="icone-toggle">+</span>
+                    </button>
+                    <div class="contenu-toggle">
+                    <p>
+                        Balzac publie <em>La Peau de chagrin</em> en 1831, à une période où il
+                        cherche encore à s'imposer dans le monde littéraire. Le roman connaît
+                        rapidement un grand succès et devient l'une des œuvres majeures de
+                        <em>La Comédie humaine</em>.
+                    </p>
+                    <ol class="liste-style">
+                        <li>1830 — Balzac commence l'écriture du roman</li>
+                        <li>1831 — Publication de <em>La Peau de chagrin</em></li>
+                        <li>1831 — Le roman connaît un important succès littéraire</li>
+                        <li>1842 — L'œuvre est intégrée à <em>La Comédie humaine</em></li>
+                        <li>1850 — Mort de Balzac à Paris</li>
+                    </ol>
+                    </div>
+                </div>
+                <blockquote>
+                    Il n'est pas de grande passion sans grand désespoir.
+                    <cite>— Honoré de Balzac, <em>La Peau de Chagrin</em></cite>
+                </blockquote>
+            </section>
+            <hr class="ligne-deco-longue" />
+            <section id="personnages" aria-labelledby="titre-personnages">
+                <h2 id="titre-personnages">Personnages principaux</h2>
+                <table class="tableau-style">
+                    <caption>Tableau des personnages — La Peau de Chagrin</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Personnages</th>
+                            <th scope="col">Rôle</th>
+                            <th scope="col">Récit</th>
+                            <th scope="col">Archétype</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Raphaël de Valentin</strong></td>
+                            <td>Jeune homme ruiné, reçoit la peau de chagrin</td>
+                            <td>Paris</td>
+                            <td>Le désir, la fatalité</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>L'antiquaire</strong></td>
+                            <td>Vieil homme mystérieux qui remet la peau magique à Raphaël</td>
+                            <td>Paris</td>
+                            <td>La sagesse, le savoir</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Pauline</strong></td>
+                            <td>Amoureuse sincère de Raphaël</td>
+                            <td>Paris</td>
+                            <td>L'amour pur</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Foedora</strong></td>
+                            <td>Femme aristocratique admirée par Raphaël</td>
+                            <td>Paris</td>
+                            <td>Le désir inaccessible</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Rastignac</strong></td>
+                            <td>Jeune ambitieux fréquentant la haute société parisienne</td>
+                            <td>Paris</td>
+                            <td>L'ambition sociale</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Émile</strong></td>
+                            <td>Ami fidèle de Raphaël</td>
+                            <td>Paris</td>
+                            <td>L'amitié, la raison</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="citations" aria-labelledby="titre-citations">
+                <h2 id="titre-citations">Citations mémorables</h2>
+                 <blockquote>
+                    Vouloir nous brûle et Pouvoir nous détruit ; mais Savoir laisse notre faible organisation dans un perpétuel état de calme.
+                    <cite>— L'antiquaire, <em>La Peau de chagrin</em></cite>
+                </blockquote>
+                <blockquote>
+                    Vienne la mort quand elle voudra, j'ai vécu.
+                    <cite>— Pauline, <em>La Peau de chagrin</em></cite>
+                </blockquote>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="lieux" aria-labelledby="titre-lieux">
+                <h2 id="titre-lieux">Lieux clés à Paris</h2>
+                <ul class="liste-style">
+                    <li><strong>Le Palais-Royal</strong> — où Raphaël perd son argent au jeu</li>
+                    <li><strong>La Seine</strong> — où Raphaël envisage de se suicider</li>
+                    <li><strong>La boutique de l'antiquaire, quai Voltaire</strong> — où Raphaël découvre la peau de chagrin</li>
+                    <li><strong>Le faubourg Saint-Germain</strong> — salons aristocratiques fréquentés par Raphaël</li>
+                    <li><strong>Le Jardin des Tuileries</strong> — promenades et observation de la société parisienne</li>
+                </ul>
+            </section>
+        </main>
+        <footer id="pied-de-page">
+            <p>Projet NSI 2025-2026 · Lycée EIB Étoile · Joseph Gabriel</p>
+            <p>
+                Sources :
+                <a href="https://fr.wikipedia.org/wiki/Le_Ma%C3%AEtre_et_Marguerite" target="_blank" rel="noopener">Wikipédia CC BY-SA</a>
+            </p>
+        </footer>
+        <script src="code.js"></script>
     </body>
 </html>
 

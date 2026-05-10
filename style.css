@@ -431,9 +431,10 @@ blockquote {
 blockquote::before {
     content: '“';
     font-family: var(--police-titre);
-    font-size: 4rem; color: var(--couleur-accent);
+    font-size: 4rem;
+    color: var(--couleur-accent);
     opacity: 0.3;
-    position: absolute;
+    position: relative;
     top: -0.5rem;
     left: 0.5rem;
     line-height: 1;
