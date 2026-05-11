@@ -268,73 +268,113 @@ function demarrerChargement() {
 
 function afficherVilles() {
     if (!window.location.pathname.includes("carte.html")) {
-        return; 
-    } else {
-        var contexte = etat.contexte
-        var l = etat.largeur
-        var h = etat.hauteur
+        return;
+    }
 
-        VILLES.forEach(function(v) {
-            var pos = geoVersPixel(v.lat, v.lon, l, h)
-            var p = v.rayonPulsation[v.id]
+    var contexte = etat.contexte;
 
-            if (p && p.actif) {
-                contexte.beginPath()
-                contexte.arc(pos.x, pos.y, p.r, 0, Math.PI * 2);
-                contexte.strokeStyle = v.couleur + Math.round(p.alpha * 255).toString(16).padStart(2, '0');
-                contexte.lineWidth = 1.5;
-                contexte.stroke();
-            }
+    if (!contexte) {
+        return;
+    }
 
-            var estActive  = etat.villeActive && etat.villeActive.id === v.id;
-            var rayon = estActive ? 7 : 5
+    var l = etat.largeur;
+    var h = etat.hauteur;
 
-            // Halo extérieur
+    VILLES.forEach(function(v) {
+
+        // Conversion géographique → pixel
+        var pos = geoVersPixel(v.lat, v.lon, l, h);
+
+        if (!pos || pos.x == null || pos.y == null) {
+            return;
+        }
+
+        // Pulsation associée à la ville
+        var p = etat.rayonPulsation?.[v.id];
+
+        // Anneau pulsant
+        if (p && p.actif) {
+
+            var alphaHex = Math.round(
+                Math.max(0, Math.min(1, p.alpha)) * 255
+            )
+            .toString(16)
+            .padStart(2, '0');
+
             contexte.beginPath();
-            contexte.arc(pos.x, pos.y, rayon + 4, 0, Math.PI * 2);
-            contexte.fillStyle = v.couleur + '33'; // ~20% opacité
-            contexte.fill();
+            contexte.arc(pos.x, pos.y, p.r, 0, Math.PI * 2);
 
-            // Disque principal
-            contexte.beginPath();
-            contexte.arc(pos.x, pos.y, rayon, 0, Math.PI * 2);
-            contexte.fillStyle = v.couleur;
-            contexte.fill();
+            // suppose que v.couleur est un hex du type #rrggbb
+            contexte.strokeStyle = v.couleur + alphaHex;
 
-            // Contour blanc fin
-            contexte.strokeStyle = 'rgba(255,255,255,0.4)';
-            contexte.lineWidth = 1;
+            contexte.lineWidth = 1.5;
             contexte.stroke();
+        }
 
-            // Croix centrale (style cartographique)
-            contexte.strokeStyle = 'rgba(10,8,3,0.6)';
-            contexte.lineWidth = 1;
-            contexte.beginPath();
-            contexte.moveTo(pos.x - 3, pos.y);
-            contexte.lineTo(pos.x + 3, pos.y);
-            contexte.moveTo(pos.x, pos.y - 3);
-            contexte.lineTo(pos.x, pos.y + 3);
-            contexte.stroke();
+        // Ville Active
+        var estActive =
+            etat.villeActive &&
+            etat.villeActive.id === v.id;
 
-            // Label de la ville
-            var labelY = pos.y - rayon - 8;
-            contexte.font = estActive
+        var rayon = estActive ? 7 : 5;
+
+        // Halo exterieur (style morderne)
+        contexte.beginPath();
+        contexte.arc(pos.x, pos.y, rayon + 4, 0, Math.PI * 2);
+        contexte.fillStyle = v.couleur + '33';
+        contexte.fill();
+
+        // Disque principal
+        contexte.beginPath();
+        contexte.arc(pos.x, pos.y, rayon, 0, Math.PI * 2);
+
+        contexte.fillStyle = v.couleur;
+        contexte.fill();
+
+        contexte.strokeStyle = 'rgba(255,255,255,0.4)';
+        contexte.lineWidth = 1;
+
+        contexte.stroke();
+
+        // Croix centrale (pour avoir un style carte)
+        contexte.beginPath();
+
+        contexte.strokeStyle = 'rgba(10,8,3,0.6)';
+        contexte.lineWidth = 1;
+
+        contexte.moveTo(pos.x - 3, pos.y);
+        contexte.lineTo(pos.x + 3, pos.y);
+
+        contexte.moveTo(pos.x, pos.y - 3);
+        contexte.lineTo(pos.x, pos.y + 3);
+
+        contexte.stroke();
+
+        // Nom de villes
+        var labelY = pos.y - rayon - 8;
+
+        contexte.font = estActive
             ? 'italic 13px "Playfair Display", Georgia, serif'
             : 'italic 11px "Playfair Display", Georgia, serif';
-            contexte.fillStyle = estActive ? '#c4a35a' : '#8a7a5a';
-            contexte.textAlign = 'center';
-            contexte.fillText(v.nom, pos.x, labelY);
-        });
-    }
+
+        contexte.fillStyle = estActive
+            ? '#c4a35a'
+            : '#8a7a5a';
+
+        contexte.textAlign = 'center';
+
+        contexte.fillText(v.nom, pos.x, labelY);
+    });
 }
 
 // Initialisation globale au chargement de la page (chargement compet du DOM)
 document.addEventListener('DOMContentLoaded', function() {
+    initialiserCanvas();
+    redimensionnerCanvas();
     demarrerChargement();
-    genererParticules();
     afficherPopup();
     initialiserBlocsExtensibles();
-    afficherVilles()
+    afficherVilles();
 
     // Récupère le bouton de fermeture du popup par son ID
     var btnFermer = document.getElementById('btn-fermer-popup');
