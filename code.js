@@ -103,7 +103,7 @@ var VILLES = [
         nom: "Saint-Pétersbourg",
         pays: "Russie",
         lat: 59.94,
-        long: 30.31,
+        lon: 30.31,
         oeuvre: "Crime et Châtiment",
         auteur: "Fyodor Dostoïevsky, 1866",
         couleur: "#8bb0d4"
@@ -217,35 +217,39 @@ function redimensionnerCanvas() {
 }
 
 function genererParticules() {
-    // Initialise un tableau vide pour stocker les particules dans l'objet 'etat'
-    etat.particules = [];
+    if (!window.location.pathname.includes("carte.html")) {
+        return;
+    } else {
+        // Initialise un tableau vide pour stocker les particules dans l'objet 'etat'
+        etat.particules = [];
 
-    // Calcule le nombre de particules en fonction de la surface de la fenêtre (largeur × hauteur)
-    // Divise par 8000 pour ajuster la densité (plus la fenêtre est grande, plus il y aura de particules)
-    var nb = Math.floor((etat.largeur * etat.hauteur) / 8000);
+        // Calcule le nombre de particules en fonction de la surface de la fenêtre (largeur × hauteur)
+        // Divise par 8000 pour ajuster la densité (plus la fenêtre est grande, plus il y aura de particules)
+        var nb = Math.floor((etat.largeur * etat.hauteur) / 8000);
 
-    // Boucle pour créer 'nb' particules
-    for (var i = 0; i < nb; i++) {
-        // Ajoute une nouvelle particule au tableau 'etat.particules' avec des propriétés aléatoires
-        etat.particules.push({
-            // Position horizontale aléatoire entre 0 et la largeur du canvas
-            x: Math.random() * etat.largeur,
+        // Boucle pour créer 'nb' particules
+        for (var i = 0; i < nb; i++) {
+            // Ajoute une nouvelle particule au tableau 'etat.particules' avec des propriétés aléatoires
+            etat.particules.push({
+                // Position horizontale aléatoire entre 0 et la largeur du canvas
+                x: Math.random() * etat.largeur,
 
-            // Position verticale aléatoire entre 0 et la hauteur du canvas
-            y: Math.random() * etat.hauteur,
+                // Position verticale aléatoire entre 0 et la hauteur du canvas
+                y: Math.random() * etat.hauteur,
 
-            // Rayon de la particule aléatoire entre 0.2 et 1.4 (0.2 + 1.2)
-            r: Math.random() * 1.2 + 0.2,
+                // Rayon de la particule aléatoire entre 0.2 et 1.4 (0.2 + 1.2)
+                r: Math.random() * 1.2 + 0.2,
 
-            // Transparence (alpha) aléatoire entre 0.1 et 0.6 (0.1 + 0.5)
-            alpha: Math.random() * 0.5 + 0.1,
+                // Transparence (alpha) aléatoire entre 0.1 et 0.6 (0.1 + 0.5)
+                alpha: Math.random() * 0.5 + 0.1,
 
-            // Vitesse de déplacement aléatoire entre 0.05 et 0.2 (0.05 + 0.15)
-            vitesse: Math.random() * 0.15 + 0.05,
+                // Vitesse de déplacement aléatoire entre 0.05 et 0.2 (0.05 + 0.15)
+                vitesse: Math.random() * 0.15 + 0.05,
 
-            // Phase initiale aléatoire pour une animation cyclique (entre 0 et 2π)
-            phase: Math.random() * Math.PI * 2
-        });
+                // Phase initiale aléatoire pour une animation cyclique (entre 0 et 2π)
+                phase: Math.random() * Math.PI * 2
+            });
+        }
     }
 }
 
@@ -262,11 +266,75 @@ function demarrerChargement() {
     }
 }
 
+function afficherVilles() {
+    if (!window.location.pathname.includes("carte.html")) {
+        return; 
+    } else {
+        var contexte = etat.contexte
+        var l = etat.largeur
+        var h = etat.hauteur
+
+        VILLES.forEach(function(v) {
+            var pos = geoVersPixel(v.lat, v.lon, l, h)
+            var p = v.rayonPulsation[v.id]
+
+            if (p && p.actif) {
+                contexte.beginPath()
+                contexte.arc(pos.x, pos.y, p.r, 0, Math.PI * 2);
+                contexte.strokeStyle = v.couleur + Math.round(p.alpha * 255).toString(16).padStart(2, '0');
+                contexte.lineWidth = 1.5;
+                contexte.stroke();
+            }
+
+            var estActive  = etat.villeActive && etat.villeActive.id === v.id;
+            var rayon = estActive ? 7 : 5
+
+            // Halo extérieur
+            contexte.beginPath();
+            contexte.arc(pos.x, pos.y, rayon + 4, 0, Math.PI * 2);
+            contexte.fillStyle = v.couleur + '33'; // ~20% opacité
+            contexte.fill();
+
+            // Disque principal
+            contexte.beginPath();
+            contexte.arc(pos.x, pos.y, rayon, 0, Math.PI * 2);
+            contexte.fillStyle = v.couleur;
+            contexte.fill();
+
+            // Contour blanc fin
+            contexte.strokeStyle = 'rgba(255,255,255,0.4)';
+            contexte.lineWidth = 1;
+            contexte.stroke();
+
+            // Croix centrale (style cartographique)
+            contexte.strokeStyle = 'rgba(10,8,3,0.6)';
+            contexte.lineWidth = 1;
+            contexte.beginPath();
+            contexte.moveTo(pos.x - 3, pos.y);
+            contexte.lineTo(pos.x + 3, pos.y);
+            contexte.moveTo(pos.x, pos.y - 3);
+            contexte.lineTo(pos.x, pos.y + 3);
+            contexte.stroke();
+
+            // Label de la ville
+            var labelY = pos.y - rayon - 8;
+            contexte.font = estActive
+            ? 'italic 13px "Playfair Display", Georgia, serif'
+            : 'italic 11px "Playfair Display", Georgia, serif';
+            contexte.fillStyle = estActive ? '#c4a35a' : '#8a7a5a';
+            contexte.textAlign = 'center';
+            contexte.fillText(v.nom, pos.x, labelY);
+        });
+    }
+}
+
 // Initialisation globale au chargement de la page (chargement compet du DOM)
 document.addEventListener('DOMContentLoaded', function() {
     demarrerChargement();
+    genererParticules();
     afficherPopup();
     initialiserBlocsExtensibles();
+    afficherVilles()
 
     // Récupère le bouton de fermeture du popup par son ID
     var btnFermer = document.getElementById('btn-fermer-popup');
