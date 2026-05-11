@@ -1,16 +1,241 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Londres — Oliver Twist · Littérature & Villes</title>
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body class="page-oeuvre">
+        <!-- POPUP (contrôler par sessionStorage via code.js)-->
+         <div id="overlay-popup" role="dialog" aria-modal="true" aria-labelledby="popup-titre">
+            <div id="popup-contenu">
+                <p class="surtitre">Vous lisez</p>
+                <h2 id="popup-titre">Londres</h2>
+                <p>Ville de la pauvreté et des injustices — découvrez comment Dickens transforme Londres en personnage du roman</p>
+                <button id="btn-fermer-popup">Continuer</button>
+            </div>
+         </div>
         <header class="site-header">
-            <p class="surtitre">Londres — Angleterre</p>
+            <p class="surtitre">Londres · Angleterre</p>
             <h1>Oliver Twist</h1>
-            <p class="sous-titre-header">Charles Dickens · Publié en 1838</p>  
+            <p class="sous-titre-header">Charles Dickens · Publié en 1838</p>
         </header>
+         <main>
+            <nav aria-label="Navigation dans la page" style="margin-bottom: 2rem;">
+                <p class="surtitre">Sur cette page :</p>
+                <ul class="liste-style">
+                    <li><a href="#presentation">Présentation</a></li>
+                    <li><a href="#ville">Londres dans le roman</a></li>
+                    <li><a href="#personnages">Personnages</a></li>
+                    <li><a href="#citations">Citations</a></li>
+                    <li><a href="#lieux">Lieux clés</a></li>
+                </ul>
+            </nav>
+            <section id="presentation" aria-labelledby="titre-présentation">
+                <div class="oeuvre-meta">
+                    <div class="oeuvre-affiche">
+                        <!-- Couverture illustrée en SVG inline -->
+                        <svg class="couverture-livre" viewBox="0 0 180 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Couverture illustrée du roman Le Maître et Marguerite">
+                            <rect width="180" height="250"  fill="#5a0a0a"/>
+                            <rect x="0" y="0" width="15" height="250" fill="#3a0505"/>
+                            <!-- Lune -->
+                             <circle cx="120" cy="60" r="35" fill="#f5c832" opacity="0.9"/>
+                             <circle cx="108" cy="55" r="30" fill="#5a0a0a"/>
+                            <!-- Chat de Béhémoth -->
+                             <ellipse cx="90" cy="170" rx="25" ry="20" fill="#1a0505"/>
+                             <ellipse cx="90" cy="148" rx="15" ry="16" fill="#1a0505"/>
+                             <polygon points="78,135 74,122 83,130" fill="#1a0505"/>
+                             <polygon points="102,135 106,122 97,130" fill="#1a0505"/>
+                             <circle cx="85" cy="147" r="3" fill="#f5c842"/>
+                             <circle cx="95" cy="147" r="3" fill="#f5c842"/>
+                             <path d="M 70 185 Q 80 200 90 190 Q 100 200 110 185" fill="none" stroke="#1a0505" stroke-width="4"/>
+                            <!-- Titre -->
+                             <text x="90" y="215" font-family="Georgia, serif" font-size="10" fill="#c4a35a" text-anchor="middle">Le Maître</text>
+                             <text x="90" y="228" font-family="Georgia, serif" font-size="10" fill="#c4a35a" text-anchor="middle">&amp; Marguerite</text>
+                             <text x="90" y="243" font-family="Georgia, serif" font-size="8" fill="#888" text-anchor="middle">Boulgakov</text>
+                        </svg>
+                    </div>
+                    <div class="oeuvre-info">
+                        <h2 id="titre-présentation">Oliver Twist</h2>
+                        <p class="auteur-ligne">Charles Dickens (1812-1870)</p>
+                        <span class="badge-ville">Londres</span>
+                        <div class="fiche-info">
+                            <dl>
+                                <dt>Genre</dt>  <dd>Roman social</dd>
+                                <dt>Langue</dt> <dd>Anglais</dd>
+                                <dt>Rédigé</dt> <dd>1837-1839 (2 ans de travail)</dd>
+                                <dt>Publié</dt> <dd>1838</dd>
+                                <dt>Lieu</dt>   <dd>Londres industrielle, XIXe siècle</dd>
+                                <dt>Thèmes</dt> <dd>Pauvreté, injustice sociale, enfance, criminalité et survie</dd>
+                            </dl>
+                        </div>
+                        <p>
+                            Roman social de Dickens, <em>Oliver Twist</em> raconte le parcours d'un jeune orphelin confronté à la pauvreté, au crime et aux injustices du Londres du XIXe siècle.
+                        </p>
+                        <p>
+                            En savoir plus :
+                            <a href="https://fr.wikipedia.org/wiki/Oliver_Twist" target="_blank" rel="noopener">Article Wikipédia</a>
+                            <a href="https://www.lesresumes.com/litterature/oliver-twist-dickens/" target="_blank" rel="noopener">Résumé de l'œuvre</a>
+                            <a href="https://www.superprof.fr/ressources/langues/lv2-anglais/oliver-twist.html" target="_blank" rel="noopener">Analyse du roman</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="ville" aria-labelledby="titre-ville">
+                <h2 id="titre-ville">Londres : une ville marquée par la pauvreté et les injustices</h2>
+                <p>
+                    Le Londres de Dickens est celui du XIX<sup>e</sup> siècle : ville de la
+                    <span class="mot-cle" data-def="Situation de grande misère et de manque de ressources">pauvreté</span>,
+                    des
+                    <span class="mot-cle" data-def="Traitements injustes subis par les classes populaires et les enfants">injustices sociales</span>
+                    et de la criminalité. Entre rues sombres, orphelinats et quartiers misérables,
+                    Dickens fait de Londres un lieu où la survie et l'argent gouvernent la vie des plus pauvres.
+                </p>
+
+                <!-- MONTRER/MASQUER : les lieux réels -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                    Les lieux réels de Londres dans le roman
+                    <span class="icone-toggle">+</span>
+                    </button>
+                    <div class="contenu-toggle">
+                    <p>
+                        Dickens ancre son récit dans une topographie londonienne précise et réaliste.
+                        Plusieurs lieux emblématiques de Londres sont évoqués dans le roman :
+                    </p>
+                    <ul class="liste-style">
+                        <li><strong>Le quartier de Whitechapel</strong> — lieu de pauvreté et de criminalité</li>
+                        <li><strong>Les workhouses londoniennes</strong> — où Oliver subit la misère des orphelinats</li>
+                        <li><strong>Le repaire de Fagin</strong> — cachette des jeunes voleurs de Londres</li>
+                        <li><strong>Le pont de Londres</strong> — symbole de la ville industrielle</li>
+                        <li><strong>Les rues de Londres</strong> — où Oliver découvre la violence et la pauvreté urbaine</li>
+                    </ul>
+                    <p>
+                        Le <a href="https://fr.wikipedia.org/wiki/Whitechapel"
+                            target="_blank" rel="noopener">quartier de Whitechapel</a>
+                        est l'un des lieux emblématiques du roman, associé à la pauvreté et à la criminalité du Londres du XIXe siècle.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- MONTRER/MASQUER : contexte historique -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                       Dickens et le succès d'Oliver Twist
+                        <span class="icone-toggle">+</span>
+                    </button>
+                    <div class="contenu-toggle">
+                    <p>
+                        Dickens publie <em>Oliver Twist</em> en 1838, à une période où il devient l'un des écrivains les plus populaires d'Angleterre. 
+                        Le roman connaît rapidement un grand succès et devient l'une des œuvres majeures de la littérature anglaise du XIXe siècle.
+                    </p>
+                    <ol class="liste-style">
+                        <li>1837 — Dickens commence l'écriture et la publication du roman en feuilleton</li>
+                        <li>1838 — Publication de <em>Oliver Twist</em></li>
+                        <li>1838 — Le roman connaît un important succès populaire</li>
+                        <li>1840 — Dickens devient l'un des écrivains les plus célèbres d'Angleterre</li>
+                        <li>1870 — Mort de Dickens à Higham</li>
+                    </ol>
+                    </div>
+                </div>
+                <blockquote>
+                    Les lectures sont un combat qu'il faut livrer comme il faut livrer un combat pour la vie.
+                    <cite>— Charles Dickens</cite>
+                </blockquote>
+            </section>
+            <hr class="ligne-deco-longue" />
+            <section id="personnages" aria-labelledby="titre-personnages">
+                <h2 id="titre-personnages">Personnages principaux</h2>
+                <table class="tableau-style">
+                    <caption>Tableau des personnages — Oliver Twist</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Personnages</th>
+                            <th scope="col">Rôle</th>
+                            <th scope="col">Récit</th>
+                            <th scope="col">Archétype</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Oliver Twist</strong></td>
+                            <td>Jeune orphelin confronté à la misère londonienne</td>
+                            <td>Londres</td>
+                            <td>L'innocence, la survie</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Fagin</strong></td>
+                            <td>Chef d'une bande de jeunes voleurs</td>
+                            <td>Londres</td>
+                            <td>La manipulation, le crime</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Le Renard</strong></td>
+                            <td>Jeune pickpocket membre du groupe de Fagin</td>
+                            <td>Londres</td>
+                            <td>L'enfance perdue</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Nancy</strong></td>
+                            <td>Jeune femme liée au monde criminel</td>
+                            <td>Londres</td>
+                            <td>La bonté, le sacrifice</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Bill Sikes</strong></td>
+                            <td>Criminel violent et brutal</td>
+                            <td>Londres</td>
+                            <td>La violence</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Mr Brownlow</strong></td>
+                            <td>Vieil homme généreux qui aide Oliver</td>
+                            <td>Londres</td>
+                            <td>La justice, la bienveillance</td>
+                    </tbody>
+                </table>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="citations" aria-labelledby="titre-citations">
+                <h2 id="titre-citations">Citations mémorables</h2>
+                 <blockquote>
+                    Please, sir, I want some more.
+                    <cite>— Oliver, <em>Oliver Twist</em></cite>
+                </blockquote>
+                <blockquote>
+                    Some people are nobody's enemies but their own.
+                    <cite>— Fagin, <em>Oliver Twist</em></cite>
+                </blockquote>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="lieux" aria-labelledby="titre-lieux">
+                <h2 id="titre-lieux">Lieux clés à Londres</h2>
+                <ul class="liste-style">
+                    <li><strong>Le quartier de Whitechapel</strong> — lieu de pauvreté et de criminalité</li>
+                    <li><strong>Les workhouses londoniennes</strong> — où Oliver subit la misère des orphelinats</li>
+                    <li><strong>Le repaire de Fagin</strong> — cachette des jeunes voleurs de Londres</li>
+                    <li><strong>Le pont de Londres</strong> — symbole de la ville industrielle</li>
+                    <li><strong>Les rues de Londres</strong> — où Oliver découvre la violence et la pauvreté urbaine</li>
+                </ul>
+            </section>
+        </main>
+        <footer id="pied-de-page">
+            <p>Projet NSI 2025-2026 · Lycée EIB Étoile · Joseph Gabriel</p>
+            <p>
+                Sources :
+                <a href="https://fr.wikipedia.org/wiki/Oliver_Twist" target="_blank" rel="noopener">Wikipédia CC BY-SA</a>
+            </p>
+        </footer>
+        <script src="code.js"></script>
     </body>
-<html>
+</html>
+
+
+
