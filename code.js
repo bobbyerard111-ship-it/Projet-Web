@@ -1,9 +1,440 @@
-/* scripts/main.js — Fonctions JavaScript principales
+/* code.js — Fonctions JavaScript principales
    Projet : Œuvres littéraires par villes
    Auteurs : Joseph Gabriel
    Date : 2025–2026 */
 
-/* MONTRER / MASQUER */
+// Données des villes: coordonnées géographiques + données littérares
+var VILLES = [
+      {
+        id: "dublin",
+        nom: "Dublin",
+        pays: "Irlande",
+        lat: 53.35,
+        lon: -6.26,
+        oeuvre: "Ulysse",
+        auteur: "James Joyce, 1922",
+        url: "dublin.html",
+        couleur: "#5a9a6a"
+      },
+      {
+        id: "moscou",
+        nom: "Moscou",
+        pays: "Russie",
+        lat: 55.75,
+        lon: 37.62,
+        oeuvre: "Le Maître et Marguerite",
+        auteur: "Boulgakov, 1966",
+        url: "moscou.html",
+        couleur: "#c4a35a"
+      },
+      {
+        id: "saint-petersbourg",
+        nom: "Saint-Pétersbourg",
+        pays: "Russie",
+        lat: 59.95,
+        lon: 30.32,
+        oeuvre: "Crime et Châtiment",
+        auteur: "Dostoïevski, 1866",
+        url: "saint-petersbourg.html",
+        couleur: "#8bb0d4"
+      },
+      {
+        id: "londres",
+        nom: "Londres",
+        pays: "Angleterre",
+        lat: 51.51,
+        lon: -0.13,
+        oeuvre: "Oliver Twist",
+        auteur: "Dickens, 1846",
+        url: "londres.html",
+        couleur: "#d4a0b0"
+      },
+      {
+        id: "paris",
+        nom: "Paris",
+        pays: "France",
+        lat: 48.85,
+        lon: 2.35,
+        oeuvre: "La peau de chagrin",
+        auteur: "Balzac, 1831",
+        url: "paris.html",
+        couleur: "#a0b4d4"
+      },
+      {
+        id: "prague",
+        nom: "Prague",
+        pays: "République tchèque",
+        lat: 50.08,
+        lon: 14.44,
+        oeuvre: "La Métamorphose",
+        auteur: "Franz Kafka, 1915",
+        url: "prague.html",
+        couleur: "#c4a35a"
+      }
+    ];
+
+var CARTE = {
+  lonMin: -30,   // bord gauche
+  lonMax: 60,    // bord droit
+  latMin: 30,    // bord bas
+  latMax: 72     // bord haut
+};
+
+var etat = {
+  canvas: null,
+  contexte: null,
+  largeur: 0,
+  hauteur: 0,
+  villeActive: null,        // ville survolée
+  tempsDebut: null,         // pour les animations temporelles
+  chargementTermine: false
+};
+
+var curseur = {
+  x: 0,
+  y: 0,
+  visible: false
+};
+
+// Fonctions utilitaires
+
+function hexVersRgba(hex, alpha) {
+  var r = parseInt(hex.slice(1, 3), 16);
+  var g = parseInt(hex.slice(3, 5), 16);
+  var b = parseInt(hex.slice(5, 7), 16);
+  return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+}
+
+function latVersString(lat) {
+  var deg = Math.abs(lat).toFixed(1);
+  return deg + '°' + (lat >= 0 ? 'N' : 'S');
+}
+
+function lonVersString(lon) {
+  var deg = Math.abs(lon).toFixed(1);
+  return deg + '°' + (lon >= 0 ? 'E' : 'W');
+}
+
+function latLonVersString(lat, lon) {
+  return latVersString(lat) + ' / ' + lonVersString(lon);
+}
+
+function geoVersPixel(lat, lon, largeur, hauteur) {
+  var x = ((lon - CARTE.lonMin) / (CARTE.lonMax - CARTE.lonMin)) * largeur;
+  var y = ((CARTE.latMax - lat)  / (CARTE.latMax - CARTE.latMin)) * hauteur;
+  return { x: x, y: y };
+}
+
+// Initialisation
+
+function redimensionnerCanvas() {
+  etat.largeur  = window.innerWidth;
+  etat.hauteur  = window.innerHeight;
+  etat.canvas.width  = etat.largeur;
+  etat.canvas.height = etat.hauteur;
+}
+
+function initialiserCanvas() {
+  etat.canvas = document.getElementById('carte-canvas');
+  // Si pas de canvas (pages non-carte), on arrête
+  if (!etat.canvas) return;
+  etat.contexte = etat.canvas.getContext('2d');
+  redimensionnerCanvas();
+  window.addEventListener('resize', redimensionnerCanvas);
+}
+
+// Dessin
+
+// Fond de carte
+function dessinerFond(t) {
+  var ctx = etat.contexte;
+  var W   = etat.largeur;
+  var H   = etat.hauteur;
+
+  // Fond dégradé sombre
+  var grad = ctx.createRadialGradient(W * 0.45, H * 0.5, 0, W * 0.45, H * 0.5, W * 0.7);
+  grad.addColorStop(0,   '#1e180a');
+  grad.addColorStop(0.5, '#160f06');
+  grad.addColorStop(1,   '#0a0805');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.strokeStyle = 'rgba(90, 74, 42, 0.18)';
+  ctx.lineWidth   = 0.5;
+  for (var lon = -30; lon <= 60; lon += 10) {
+    var p1 = geoVersPixel(CARTE.latMax, lon, W, H);
+    var p2 = geoVersPixel(CARTE.latMin, lon, W, H);
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.stroke();
+
+    // Etiquette de la longitude
+    ctx.fillStyle = 'rgba(90, 74, 42, 0.35)';
+    ctx.font      = '9px "Courier Prime", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(lon + '°', p2.x, p2.y - 6);
+  }
+
+  // Grilles de parallèles (latitudes, longitudes)
+  for (var lat = 30; lat <= 72; lat += 10) {
+    var pp1 = geoVersPixel(lat, CARTE.lonMin, W, H);
+    var pp2 = geoVersPixel(lat, CARTE.lonMax, W, H);
+    ctx.strokeStyle = 'rgba(90, 74, 42, 0.18)';
+    ctx.lineWidth   = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(pp1.x, pp1.y);
+    ctx.lineTo(pp2.x, pp2.y);
+    ctx.stroke();
+
+    // Affichage de la latitude (étiquette)
+    ctx.fillStyle = 'rgba(90, 74, 42, 0.35)';
+    ctx.font      = '9px "Courier Prime", monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText(lat + '°N', pp1.x + 4, pp1.y - 3);
+  }
+}
+
+// dessin de la carte
+function dessinerContourEurope() {
+  var ctx = etat.contexte;
+  var W   = etat.largeur;
+  var H   = etat.hauteur;
+
+  // Points de contour de l'europe occidentale (très approximatif mais nécessaire pour pouvoir bien gérer les animations)
+  var contour = [
+    [71, 28],  // Cap Nord (Norvège)
+    [70, 18],
+    [65, 14],  // Norvège côte ouest
+    [62, 5],
+    [58, 5],   // Scandinavie sud
+    [55, 8],   // Danemark
+    [54, 10],
+    [52, 4],   // Pays-Bas
+    [51, 2],   // Belgique/Nord France
+    [48, -5],  // Bretagne
+    [43, -9],  // Nord Portugal
+    [36, -9],  // Portugal sud
+    [36, -6],
+    [36, -5],  // Détroit de Gibraltar
+    [36, 2],   // Espagne est
+    [41, 3],   // Barcelone
+    [43, 5],   // Côte d'Azur
+    [44, 8],   // Gênes
+    [44, 12],  // Adriatique
+    [40, 18],
+    [37, 15],  // Sicile
+    [37, 23],  // Grèce
+    [40, 26],
+    [41, 29],  // Istanbul
+    [42, 35],  // Mer Noire
+    [46, 30],
+    [47, 24],  // Carpates
+    [50, 24],
+    [54, 18],  // Pologne
+    [56, 21],  // Pays Baltes
+    [60, 24],  // Finlande
+    [65, 25],
+    [70, 28],
+    [71, 28]   // retour Nord
+  ];
+
+  ctx.beginPath();
+  var premier = geoVersPixel(contour[0][0], contour[0][1], W, H);
+  ctx.moveTo(premier.x, premier.y);
+  for (var i = 1; i < contour.length; i++) {
+    var pt = geoVersPixel(contour[i][0], contour[i][1], W, H);
+    ctx.lineTo(pt.x, pt.y);
+  }
+  ctx.closePath();
+
+  // remplissage plus clair
+  var gradTerre = ctx.createLinearGradient(0, 0, W, H);
+  gradTerre.addColorStop(0, 'rgba(40, 30, 15, 0.55)');
+  gradTerre.addColorStop(1, 'rgba(28, 20, 8, 0.55)');
+  ctx.fillStyle   = gradTerre;
+  ctx.fill();
+
+  // Contour doré
+  ctx.strokeStyle = 'rgba(139, 100, 40, 0.5)';
+  ctx.lineWidth   = 1.2;
+  ctx.stroke();
+}
+
+// Dessin des points des villes
+function dessinerVilles(t) {
+  var ctx = etat.contexte;
+  var W   = etat.largeur;
+  var H   = etat.hauteur;
+
+  VILLES.forEach(function(ville) {
+    var pos = geoVersPixel(ville.lat, ville.lon, W, H);
+
+    // Cercle simple
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = ville.couleur;
+    ctx.fill();
+
+    // Etiquette
+    ctx.fillStyle = ville.couleur;
+    ctx.font = '12px "Playfair Display", Georgia, serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(ville.nom, pos.x, pos.y - 10);
+  });
+}
+
+// Événements
+
+function villeSousCurseur(x, y) {
+  var W = etat.largeur;
+  var H = etat.hauteur;
+  var rayon = 22; // zone de clic en pixels
+
+  for (var i = 0; i < VILLES.length; i++) {
+    var v   = VILLES[i];
+    var pos = geoVersPixel(v.lat, v.lon, W, H);
+    var dx  = x - pos.x;
+    var dy  = y - pos.y;
+    if (Math.sqrt(dx * dx + dy * dy) < rayon) return v;
+  }
+  return null;
+}
+
+function gererSurvol(e) {
+  var rect = etat.canvas.getBoundingClientRect();
+  var x    = e.clientX - rect.left;
+  var y    = e.clientY - rect.top;
+
+  curseur.x = e.clientX;
+  curseur.y = e.clientY;
+  curseur.visible = true;
+
+  var ville = villeSousCurseur(x, y);
+  etat.villeActive = ville;
+
+  if (ville) {
+    etat.canvas.style.cursor = 'pointer';
+    afficherTooltip(ville, e.clientX, e.clientY);
+    mettreAJourHUD(ville);
+  } else {
+    etat.canvas.style.cursor = 'crosshair';
+    cacherTooltip();
+    mettreAJourHUD(null, x, y);
+  }
+}
+
+function gererClic(e) {
+  var rect = etat.canvas.getBoundingClientRect();
+  var x    = e.clientX - rect.left;
+  var y    = e.clientY - rect.top;
+  var ville = villeSousCurseur(x, y);
+
+  if (ville) {
+    declencherTransition(ville);
+  }
+}
+
+function gererSortie() {
+  curseur.visible  = false;
+  etat.villeActive = null;
+  cacherTooltip();
+}
+
+// TOOLTIP
+function afficherTooltip(ville, clientX, clientY) {
+  var tooltip = document.getElementById('tooltip-ville');
+
+  document.getElementById('tt-nom').textContent    = ville.nom;
+  document.getElementById('tt-pays').textContent   = ville.pays;
+  document.getElementById('tt-oeuvre').textContent = ville.oeuvre;
+  document.getElementById('tt-auteur').textContent = ville.auteur;
+
+  // Positionnement : au-dessus du curseur, éviter les bords
+  var tx = clientX - 80;
+  var ty = clientY - 160;
+  if (tx < 10) tx = 10;
+  if (ty < 10) ty = clientY + 20;
+  if (tx + 200 > window.innerWidth) tx = window.innerWidth - 210;
+
+  tooltip.style.left = tx + 'px';
+  tooltip.style.top  = ty + 'px';
+  tooltip.classList.add('visible');
+}
+
+function cacherTooltip() {
+    document.getElementById('tooltip-ville').classList.remove('visible');
+}
+
+// coordonnées
+function mettreAJourHUD(ville, x, y) {
+  if (ville) {
+    document.getElementById('hud-lat').textContent = latVersString(ville.lat);
+    document.getElementById('hud-lon').textContent = lonVersString(ville.lon);
+    document.getElementById('ville-active-nom').textContent = ville.nom.toUpperCase();
+  } else if (x !== undefined && y !== undefined) {
+    var W   = etat.largeur;
+    var H   = etat.hauteur;
+    var lon = CARTE.lonMin + (x / W) * (CARTE.lonMax - CARTE.lonMin);
+    var lat = CARTE.latMax - (y / H) * (CARTE.latMax - CARTE.latMin);
+    document.getElementById('hud-lat').textContent = latVersString(lat);
+    document.getElementById('hud-lon').textContent = lonVersString(lon);
+    document.getElementById('ville-active-nom').textContent = '—';
+  }
+}
+
+function declencherTransition(ville) {
+  var overlay = document.getElementById('overlay-transition');
+  document.getElementById('transition-nom-ville').textContent = ville.nom;
+
+  // Fondu entrant
+  overlay.classList.add('actif');
+
+  // Navigation après 700ms
+  setTimeout(function() {
+      window.location.href = ville.url;
+  }, 700);
+}
+
+// Boucle d'animation principale (requestAnimationFrame)
+
+function boucleAnimation(timestamp) {
+  // Ne rien faire si pas de contexte (pas sur la page carte)
+  if (!etat.contexte) return;
+  
+  if (!etat.tempsDebut) etat.tempsDebut = timestamp;
+  var t = (timestamp - etat.tempsDebut) / 1000; // temps en secondes
+
+  var ctx = etat.contexte;
+  ctx.clearRect(0, 0, etat.largeur, etat.hauteur);
+
+  dessinerFond(t);
+  dessinerContourEurope();
+  dessinerVilles(t);
+
+  requestAnimationFrame(boucleAnimation);
+}
+
+function demarrerChargement() {
+  // Ne rien faire si pas de canvas (pas sur la page carte)
+  if (!etat.canvas) return;
+  
+  setTimeout(function() {
+    var ecran = document.getElementById('ecran-chargement');
+    var conteneur = document.getElementById('carte-conteneur');
+
+    ecran.classList.add('masque');
+    conteneur.classList.add('visible');
+    etat.chargementTermine = true;
+
+    etat.canvas.addEventListener('mousemove', gererSurvol);
+    etat.canvas.addEventListener('click',     gererClic);
+    etat.canvas.addEventListener('mouseleave', gererSortie);
+
+  }, 2600);
+}
+
+// MONTRER / MASQUER
 
 function basculerBloc(bouton) {
     // Récupère l'élément frère suivant du bouton (le contenu à afficher ou masquer)
@@ -32,6 +463,27 @@ function basculerBloc(bouton) {
     }
 }
 
+function initialiserPopups() {
+  var overlay = document.getElementById('overlay-popup');
+  if (!overlay) return;
+
+  // Ajouter l'écouteur pour fermer le popup
+  var btnFermer = document.getElementById('btn-fermer-popup');
+  if (btnFermer) {
+    btnFermer.addEventListener('click', fermerPopup);
+  }
+
+  // Toujours afficher le popup
+  overlay.style.display = 'flex';
+}
+
+function fermerPopup() {
+  var overlay = document.getElementById('overlay-popup');
+  if (overlay) {
+    overlay.style.display = 'none';
+  }
+}
+
 function initialiserBlocsExtensibles() {
     // Sélectionne tous les éléments avec la classe 'btn.toggle' dans le document
     var boutons = document.querySelectorAll('.btn-toggle');
@@ -48,347 +500,11 @@ function initialiserBlocsExtensibles() {
   });
 }
 
-/* POPUP D'ACCUEIL */
-
-function afficherPopup() {
-    // Vérifie si la clé 'popupVue' existe dans le sessionStorage (ce qui indiquerait que le popup a déjà été vu)
-    if (sessionStorage.getItem('popupVue')) return;
-    // Récupère l'élémet HTML avec l'ID 'overlay-popup' (le conteneur du popup)
-    var overlay = document.getElementById('overlay-popup');
-    // Si l'élément existe, on affiche en définissant son stule 'display sur 'flex'
-    if (overlay) {
-        overlay.style.display = 'flex'
-    }
-}
-
-function fermerPopup() {
-    // Récupère l'élémet HTML avec l'ID 'overlay-popup' (le conteneur du popup)
-    var overlay = document.getElementById('overlay-popup');
-    if (overlay) {
-        // Masque le popup en définissant son style 'display' sur 'none'
-        overlay.style.display = 'none';
-        // Enregistre dans le sessionStorage que la popup a été vue (valeur '1')
-        sessionStorage.setItem('popupVue', '1');
-    }
-}
-
-// CARTE INTERACTIVE
-
-//Données des villes: coordonnée géographiques + données littérares
-var VILLES = [
-    {
-        id: "dublin",
-        nom: "Dublin",
-        pays: "Irlande",
-        lat: 53.35,
-        lon: -6.26,
-        oeuvre: "Ulysse",
-        auteur: "James Joyce, 1922",
-        url: "dublin.html",
-        couleur: "#5a9a6a"
-    },
-    {
-        id: "moscou",
-        nom: "Moscou",
-        pays: "Russie",
-        lat: 55.75,
-        lon: 37.62,
-        oeuvre: "Le Maître et Marguerite",
-        auteur: "Mikhaïl Boulgakov, 1966",
-        url: "moscou.html",
-        couleur: "#c4a35a"
-    },
-    {
-        id: "saint-petersbourg",
-        nom: "Saint-Pétersbourg",
-        pays: "Russie",
-        lat: 59.94,
-        lon: 30.31,
-        oeuvre: "Crime et Châtiment",
-        auteur: "Fyodor Dostoïevsky, 1866",
-        couleur: "#8bb0d4"
-    },
-    {
-        id: "londres",
-        nom: "Londres",
-        pays: "Angleterre",
-        lat: 51.51,
-        lon: -0.13,
-        oeuvre: "Page à venir",
-        auteur: "—",
-        url: "londres.html",
-        couleur: "#d4a0b0"
-    },
-    {
-        id: "paris",
-        nom: "Paris",
-        pays: "France",
-        lat: 48.85,
-        lon: 2.35,
-        oeuvre: "Page à venir",
-        auteur: "—",
-        url: "paris.html",
-        couleur: "#a0b4d4"
-    },
-    {
-        id: "prague",
-        nom: "Prague",
-        pays: "République tchèque",
-        lat: 50.08,
-        lon: 14.44,
-        oeuvre: "Page à venir",
-        auteur: "—",
-        url: "prague.html",
-        couleur: "#c4a35a"
-    }
-];
-
-var CARTE = {
-    lonMin: -30,    // bord gauche
-    lonMax: 60,     // bord droit
-    latMin: 30,     // bord bas
-    latMax: 72,     // bord gauche
-};
-
-var etat = {
-    canvas: null,
-    contexte: null,
-    largeur: 0,
-    hauteur: 0,
-    villeActive: null,   // ville survolée
-    particules: [],       // Particules flottantes
-    tempsDebut: null,   // pour animations temporelles
-    rayonPulsation: {}, // RAYON ANIMES PAR VILLE
-    echelle: 1,         // pour animation d'entrée
-    chargementTermine: false
-
-};
-
-function geoVersPixel(lat, lon, largeur, hauteur) {
-  // Calcul de la coordonnée x en pixels :
-  // - (lon - CARTE.lonMin) : calcule la distance entre la longitude du point et la longitude minimale de la carte.
-  // - (CARTE.lonMax - CARTE.lonMin) : calcule la largeur totale de la carte en degrés de longitude.
-  // - Le rapport entre ces deux valeurs donne la position relative du point sur l'axe horizontal (entre 0 et 1).
-  // - On multiplie par "largeur" pour obtenir la coordonnée x en pixels.
-  var x = ((lon - CARTE.lonMin) / (CARTE.lonMax - CARTE.lonMin)) * largeur;
-
-  // Calcul de la coordonnée y en pixels :
-  // - (CARTE.latMax - lat) : calcule la distance entre la latitude maximale de la carte et la latitude du point. 
-  // - (CARTE.latMax - CARTE.latMin) : calcul la hauteur totale de la carte en degrés de latitude.
-  // - Le rapport entre ces deux valeurs donne la position relative du point sur l'axe vertical (entre 0 et 1).
-  // - On multiplie par "hauteur" pour obtenir la coordonnée y en pixels.
-  var y = ((CARTE.latMax - lat) / (CARTE.latMax - CARTE.latMin)) * hauteur;
-
-  // Retourne un objet avec les coordonnées x et y en pixels.
-  return { x: x, y: y };
-}
-
-function initialiserCanvas() {
-    // Récupère l'élément HTML du canvas avec l'ID 'carte-canvas' et le stocke dans l'objet 'etat' (défini ci-dessus)
-    etat.canvas = document.getElementById('carte-canvas');
-    // Récupère le contexte de rendu 2D du canvas pour dessiner dessus
-    etat.contexte = etat.canvas.getContext('2d');
-    redimensionnerCanvas();
-    // Ajoute un écouteur d'événement pour redimensionner le canvas à chaque fois que la fenêtre est redimensionnée par l'utilisateur
-    window.addEventListener('resize', redimensionnerCanvas);
-}
- 
-function redimensionnerCanvas() {
-    // Stocke la largeur de la fenêtre dnas l'objet 'etat'
-    etat.largeur = window.innerWidth;
-    // Stocke la hauteur de la fenêtre dans l'objet 'etat'
-    etat.hauteur = window.innerHeight;
-    // Définit la largeur du canvas égal à la largeur de la fenêtre
-    etat.canvas.width = etat.largeur;
-    // Définit la hauteur du canvas égal à la hauteur de la fenêtre
-    etat.canvas.height = etat.hauteur;
-    // Initialisation des rayons de pulsations pour chaque ville
-    // Parcourt chaque ville dans la table Ville définie ci-dessus
-    VILLES.forEach(function(v) {
-        // Si la ville n'a pas encore de propriété `rayonPulsation` dans l'objet `etat`
-        if (!etat.rayonPulsation[v.id]) {
-            // Initialise un objet pour cette ville avec :
-            // - 'r' : rayon de la pulsation (initialisé à 0)
-            // - 'alpha' : transparence de la pulsation (initialisée à 0)
-            // - 'actif' : état de la pulsation (initialisé à false)
-            etat.rayonPulsation[v.id] = {r: 0, alpha: 0, actif: false};
-        };
-    });
-}
-
-function genererParticules() {
-    if (!window.location.pathname.includes("carte.html")) {
-        return;
-    } else {
-        // Initialise un tableau vide pour stocker les particules dans l'objet 'etat'
-        etat.particules = [];
-
-        // Calcule le nombre de particules en fonction de la surface de la fenêtre (largeur × hauteur)
-        // Divise par 8000 pour ajuster la densité (plus la fenêtre est grande, plus il y aura de particules)
-        var nb = Math.floor((etat.largeur * etat.hauteur) / 8000);
-
-        // Boucle pour créer 'nb' particules
-        for (var i = 0; i < nb; i++) {
-            // Ajoute une nouvelle particule au tableau 'etat.particules' avec des propriétés aléatoires
-            etat.particules.push({
-                // Position horizontale aléatoire entre 0 et la largeur du canvas
-                x: Math.random() * etat.largeur,
-
-                // Position verticale aléatoire entre 0 et la hauteur du canvas
-                y: Math.random() * etat.hauteur,
-
-                // Rayon de la particule aléatoire entre 0.2 et 1.4 (0.2 + 1.2)
-                r: Math.random() * 1.2 + 0.2,
-
-                // Transparence (alpha) aléatoire entre 0.1 et 0.6 (0.1 + 0.5)
-                alpha: Math.random() * 0.5 + 0.1,
-
-                // Vitesse de déplacement aléatoire entre 0.05 et 0.2 (0.05 + 0.15)
-                vitesse: Math.random() * 0.15 + 0.05,
-
-                // Phase initiale aléatoire pour une animation cyclique (entre 0 et 2π)
-                phase: Math.random() * Math.PI * 2
-            });
-        }
-    }
-}
-
-function demarrerChargement() {
-    if (window.location.pathname.includes("carte.html")) {
-        setTimeout(function() {
-            var ecran = document.getElementById('ecran-chargement');
-            var conteneur = document.getElementById('carte-conteneur');
-
-            ecran.classList.add('masque');
-            conteneur.classList.add('visible');
-            etat.chargementTermine = true;
-        }, 2600)
-    }
-}
-
-function afficherVilles() {
-    if (!window.location.pathname.includes("carte.html")) {
-        return;
-    }
-
-    var contexte = etat.contexte;
-
-    if (!contexte) {
-        return;
-    }
-
-    var l = etat.largeur;
-    var h = etat.hauteur;
-
-    VILLES.forEach(function(v) {
-
-        // Conversion géographique → pixel
-        var pos = geoVersPixel(v.lat, v.lon, l, h);
-
-        if (!pos || pos.x == null || pos.y == null) {
-            return;
-        }
-
-        // Pulsation associée à la ville
-        var p = etat.rayonPulsation?.[v.id];
-
-        // Anneau pulsant
-        if (p && p.actif) {
-
-            var alphaHex = Math.round(
-                Math.max(0, Math.min(1, p.alpha)) * 255
-            )
-            .toString(16)
-            .padStart(2, '0');
-
-            contexte.beginPath();
-            contexte.arc(pos.x, pos.y, p.r, 0, Math.PI * 2);
-
-            // suppose que v.couleur est un hex du type #rrggbb
-            contexte.strokeStyle = v.couleur + alphaHex;
-
-            contexte.lineWidth = 1.5;
-            contexte.stroke();
-        }
-
-        // Ville Active
-        var estActive =
-            etat.villeActive &&
-            etat.villeActive.id === v.id;
-
-        var rayon = estActive ? 7 : 5;
-
-        // Halo exterieur (style morderne)
-        contexte.beginPath();
-        contexte.arc(pos.x, pos.y, rayon + 4, 0, Math.PI * 2);
-        contexte.fillStyle = v.couleur + '33';
-        contexte.fill();
-
-        // Disque principal
-        contexte.beginPath();
-        contexte.arc(pos.x, pos.y, rayon, 0, Math.PI * 2);
-
-        contexte.fillStyle = v.couleur;
-        contexte.fill();
-
-        contexte.strokeStyle = 'rgba(255,255,255,0.4)';
-        contexte.lineWidth = 1;
-
-        contexte.stroke();
-
-        // Croix centrale (pour avoir un style carte)
-        contexte.beginPath();
-
-        contexte.strokeStyle = 'rgba(10,8,3,0.6)';
-        contexte.lineWidth = 1;
-
-        contexte.moveTo(pos.x - 3, pos.y);
-        contexte.lineTo(pos.x + 3, pos.y);
-
-        contexte.moveTo(pos.x, pos.y - 3);
-        contexte.lineTo(pos.x, pos.y + 3);
-
-        contexte.stroke();
-
-        // Nom de villes
-        var labelY = pos.y - rayon - 8;
-
-        contexte.font = estActive
-            ? 'italic 13px "Playfair Display", Georgia, serif'
-            : 'italic 11px "Playfair Display", Georgia, serif';
-
-        contexte.fillStyle = estActive
-            ? '#c4a35a'
-            : '#8a7a5a';
-
-        contexte.textAlign = 'center';
-
-        contexte.fillText(v.nom, pos.x, labelY);
-    });
-}
-
 // Initialisation globale au chargement de la page (chargement compet du DOM)
 document.addEventListener('DOMContentLoaded', function() {
     initialiserCanvas();
-    redimensionnerCanvas();
+    requestAnimationFrame(boucleAnimation);
     demarrerChargement();
-    afficherPopup();
     initialiserBlocsExtensibles();
-    afficherVilles();
-
-    // Récupère le bouton de fermeture du popup par son ID
-    var btnFermer = document.getElementById('btn-fermer-popup');
-    if (btnFermer) {
-        // Ajoute un écouteur d'événerment pour fermer le popup au clic sur le bouton
-        btnFermer.addEventListener('click', fermerPopup);
-    }
-    // Récupère à nouveau l'élément overlay du popup
-    var overlay = document.getElementById('overlay-popup');
-    if (overlay) {
-        // Ajoute un écouteur d'événement pour fermer le popup si on clique en dehors de son contenu
-        overlay.addEventListener('click', function(e) {
-            // Vérifie si le clic a été effectué directement sur l'overlay (élément de la page qui n'est pas le popup)
-            if (e.target === overlay) fermerPopup();
-        });
-    }
+    initialiserPopups();
 })
