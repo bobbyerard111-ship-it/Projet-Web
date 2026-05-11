@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Tokyo — Tokyo Ghoul · Littérature & Villes</title>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body class="page-oeuvre">
+        <!-- POPUP (contrôler par sessionStorage via code.js)-->
+         <div id="overlay-popup" role="dialog" aria-modal="true" aria-labelledby="popup-titre">
+            <div id="popup-contenu">
+                <p class="surtitre">Vous lisez</p>
+                <h2 id="popup-titre">Tokyo</h2>
+                <p>Ville de la solitude et de la violence — découvrez comment Sui Ishida transforme Tokyo en personnage du manga.</p>
+                <button id="btn-fermer-popup">Continuer</button>
+            </div>
+         </div>
+
+        <header class="site-header">
+            <p class="surtitre">Tokyo · Japon</p>
+            <h1>Tokyo Ghoul</h1>
+            <p class="sous-titre-header">Sui Ishida · Publié en 2011</p>
+        </header>
+
+         <main>
+            <nav aria-label="Navigation dans la page" style="margin-bottom: 2rem;">
+                <p class="surtitre">Sur cette page :</p>
+                <ul class="liste-style">
+                    <li><a href="#presentation">Présentation</a></li>
+                    <li><a href="#ville">Tokyo dans le manga</a></li>
+                    <li><a href="#personnages">Personnages</a></li>
+                    <li><a href="#citations">Citations</a></li>
+                    <li><a href="#lieux">Lieux clés</a></li>
+                </ul>
+            </nav>
+
+            <section id="presentation" aria-labelledby="titre-présentation">
+                <div class="oeuvre-meta">
+
+                    <div class="oeuvre-affiche">
+                        <!-- SVG -->
+                    </div>
+
+                    <div class="oeuvre-info">
+                        <h2 id="titre-présentation">Tokyo Ghoul</h2>
+                        <p class="auteur-ligne">Sui Ishida (1986-)</p>
+
+                        <span class="badge-ville">Tokyo</span>
+
+                        <div class="fiche-info">
+                            <dl>
+                                <dt>Genre</dt>  <dd>Manga fantastique et horreur urbaine</dd>
+                                <dt>Langue</dt> <dd>Japonais</dd>
+                                <dt>Rédigé</dt> <dd>2011-2014</dd>
+                                <dt>Publié</dt> <dd>2011</dd>
+                                <dt>Lieu</dt>   <dd>Tokyo moderne, mégalopole japonaise contemporaine</dd>
+                                <dt>Thèmes</dt> <dd>Identité, solitude, violence, monstruosité et société urbaine</dd>
+                            </dl>
+                        </div>
+
+                        <p>
+                            Manga de Sui Ishida, <em>Tokyo Ghoul</em> raconte l'histoire de Ken Kaneki, un étudiant devenu mi-humain mi-goule après une attaque. 
+                            Dans le Tokyo moderne, humains et goules coexistent dans la peur et la violence.
+                        </p>
+
+                        <p>
+                            En savoir plus :
+                            <a href="https://fr.wikipedia.org/wiki/Tokyo_Ghoul" target="_blank" rel="noopener">Article Wikipédia</a>
+                            <a href="https://tokyoghoul.fandom.com/fr/wiki/Tokyo_Ghoul_Wiki" target="_blank" rel="noopener">Wiki Tokyo Ghoul</a>
+                            <a href="https://myanimelist.net/manga/33327/Tokyo_Ghoul" target="_blank" rel="noopener">Fiche MyAnimeList</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="ligne-deco-longue"/>
+            <section id="ville" aria-labelledby="titre-ville">
+                <h2 id="titre-ville">Tokyo : une ville entre modernité et monstruosité</h2>
+                <p>
+                    Le Tokyo de Sui Ishida est celui du XXI<sup>e</sup> siècle : ville de la
+                    <span class="mot-cle" data-def="Sentiment d’isolement au milieu de la foule urbaine">solitude</span>,
+                    de la
+                    <span class="mot-cle" data-def="Violence liée aux conflits entre humains et goules">violence urbaine</span>
+                    et de la peur. Entre cafés, ruelles nocturnes et quartiers modernes,
+                    Ishida fait de Tokyo un lieu où humains et goules vivent dans une tension permanente.
+                </p>
+
+                <!-- MONTRER/MASQUER : les lieux réels -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                    Les lieux de Tokyo dans le manga
+                    <span class="icone-toggle">+</span>
+                    </button>
+
+                    <div class="contenu-toggle">
+                    <p>
+                        Sui Ishida s'inspire fortement de l'urbanisme tokyoïte moderne.
+                        Plusieurs lieux emblématiques de Tokyo apparaissent dans le manga :
+                    </p>
+
+                    <ul class="liste-style">
+                        <li><strong>Le café Anteiku</strong> — refuge des goules pacifiques</li>
+                        <li><strong>Le 20e arrondissement</strong> — principal territoire de Kaneki</li>
+                        <li><strong>Les ruelles de Tokyo</strong> — lieux des affrontements nocturnes</li>
+                        <li><strong>Les quartiers commerciaux</strong> — foule et anonymat urbain</li>
+                        <li><strong>Les laboratoires du CCG</strong> — lutte contre les goules</li>
+                    </ul>
+
+                    <p>
+                        Le <a href="https://fr.wikipedia.org/wiki/Tokyo" target="_blank" rel="noopener">Tokyo moderne</a>
+                        est omniprésent dans le manga, entre néons, immeubles et foule urbaine.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- MONTRER/MASQUER : contexte historique -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                       Sui Ishida et le succès de Tokyo Ghoul
+                        <span class="icone-toggle">+</span>
+                    </button>
+
+                    <div class="contenu-toggle">
+                    <p>
+                        Sui Ishida publie <em>Tokyo Ghoul</em> en 2011. 
+                        Le manga connaît rapidement un immense succès au Japon puis dans le monde entier grâce à son univers sombre et psychologique.
+                    </p>
+
+                    <ol class="liste-style">
+                        <li>2011 — Début de publication de <em>Tokyo Ghoul</em></li>
+                        <li>2013 — Succès international du manga</li>
+                        <li>2014 — Adaptation en anime</li>
+                        <li>2014 — Fin de la première partie du manga</li>
+                        <li>2018 — Fin de <em>Tokyo Ghoul:re</em></li>
+                    </ol>
+                    </div>
+                </div>
+
+                <blockquote>
+                    Il vaut mieux être blessé que blesser les autres.
+                    <cite>— Ken Kaneki, <em>Tokyo Ghoul</em></cite>
+                </blockquote>
+            </section>
+
+            <hr class="ligne-deco-longue" />
+
+            <section id="personnages" aria-labelledby="titre-personnages">
+                <h2 id="titre-personnages">Personnages principaux</h2>
+
+                <table class="tableau-style">
+                    <caption>Tableau des personnages — Tokyo Ghoul</caption>
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Personnages</th>
+                            <th scope="col">Rôle</th>
+                            <th scope="col">Récit</th>
+                            <th scope="col">Archétype</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ken Kaneki</strong></td>
+                            <td>Étudiant devenu mi-humain mi-goule</td>
+                            <td>Tokyo</td>
+                            <td>L'identité, le conflit intérieur</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Touka Kirishima</strong></td>
+                            <td>Goule vivant parmi les humains</td>
+                            <td>Tokyo</td>
+                            <td>La dualité</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rize Kamishiro</strong></td>
+                            <td>Goule responsable de la transformation de Kaneki</td>
+                            <td>Tokyo</td>
+                            <td>Le danger</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kishou Arima</strong></td>
+                            <td>Inspecteur du CCG extrêmement puissant</td>
+                            <td>Tokyo</td>
+                            <td>La justice froide</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hide</strong></td>
+                            <td>Meilleur ami humain de Kaneki</td>
+                            <td>Tokyo</td>
+                            <td>L'amitié</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Yoshimura</strong></td>
+                            <td>Gérant du café Anteiku</td>
+                            <td>Tokyo</td>
+                            <td>La sagesse</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <hr class="ligne-deco-longue"/>
+            <section id="citations" aria-labelledby="titre-citations">
+                <h2 id="titre-citations">Citations mémorables</h2>
+                 <blockquote>
+                    Il vaut mieux être blessé que blesser les autres.
+                    <cite>— Ken Kaneki, <em>Tokyo Ghoul</em></cite>
+                </blockquote>
+                <blockquote>
+                    Ce monde est mauvais.
+                    <cite>— Ken Kaneki, <em>Tokyo Ghoul</em></cite>
+                </blockquote>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            
+            <section id="lieux" aria-labelledby="titre-lieux">
+                <h2 id="titre-lieux">Lieux clés à Tokyo</h2>
+                <ul class="liste-style">
+                    <li><strong>Le café Anteiku</strong> — refuge des goules pacifiques</li>
+                    <li><strong>Le 20e arrondissement</strong> — territoire principal des personnages</li>
+                    <li><strong>Les ruelles nocturnes</strong> — affrontements entre humains et goules</li>
+                    <li><strong>Le siège du CCG</strong> — organisation de lutte contre les goules</li>
+                    <li><strong>Les quartiers modernes de Tokyo</strong> — foule et anonymat urbain</li>
+                </ul>
+            </section>
+        </main>
+        <footer id="pied-de-page">
+            <p>Projet NSI 2025-2026 · Lycée EIB Étoile · Joseph Gabriel</p>
+            <p>
+                Sources :
+                <a href="https://fr.wikipedia.org/wiki/Tokyo_Ghoul" target="_blank" rel="noopener">Wikipédia CC BY-SA</a>
+            </p>
+        </footer>
+        <script src="code.js"></script>
+    </body>
+</html>
+
