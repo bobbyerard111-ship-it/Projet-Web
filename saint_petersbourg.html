@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Saint-Pétersbourg — Crime et Châtiment · Littérature & Villes</title>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body class="page-oeuvre">
+        <!-- POPUP (contrôler par sessionStorage via code.js)-->
+         <div id="overlay-popup" role="dialog" aria-modal="true" aria-labelledby="popup-titre">
+            <div id="popup-contenu">
+                <p class="surtitre">Vous lisez</p>
+                <h2 id="popup-titre">Saint-Pétersbourg</h2>
+                <p>Là où la misère et la conscience entrent en collision — plongez dans le roman de Dostoïevski.</p>
+                <button id="btn-fermer-popup">Continuer</button>
+            </div>
+         </div>
+        <header class="site-header">
+            <p class="surtitre">Saint-Pétersbourg · Russie impériale, 1860s</p>
+            <h1>Crime et Châtiment</h1>
+            <p class="sous-titre-header">Fiodor Dostoïevski · Publié en 1866</p>
+        </header>
+        <main>
+            <nav aria-label="Navigation dans la page" style="margin-bottom: 2rem;">
+                <p class="surtitre">Sur cette page :</p>
+                <ul class="liste-style">
+                    <li><a href="#presentation">Présentation</a></li>
+                    <li><a href="#ville">Saint-Pétersbourg dans le roman</a></li>
+                    <li><a href="#personnages">Personnages</a></li>
+                    <li><a href="#citations">Citations</a></li>
+                    <li><a href="#themes">Thèmes</a></li>
+                </ul>
+            </nav>
+            <section id="presentation" aria-labelledby="titre-présentation">
+                <div class="oeuvre-meta">
+                    <div class="oeuvre-affiche">
+                        <!-- Couverture illustrée en SVG inline -->
+                        <svg class="couverture-livre" viewBox="0 0 180 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Couverture illustrée du roman Le Maître et Marguerite">
+                            <rect width="180" height="250"  fill="#5a0a0a"/>
+                            <rect x="0" y="0" width="15" height="250" fill="#3a0505"/>
+                            <!-- Lune -->
+                             <circle cx="120" cy="60" r="35" fill="#f5c832" opacity="0.9"/>
+                             <circle cx="108" cy="55" r="30" fill="#5a0a0a"/>
+                            <!-- Chat de Béhémoth -->
+                             <ellipse cx="90" cy="170" rx="25" ry="20" fill="#1a0505"/>
+                             <ellipse cx="90" cy="148" rx="15" ry="16" fill="#1a0505"/>
+                             <polygon points="78,135 74,122 83,130" fill="#1a0505"/>
+                             <polygon points="102,135 106,122 97,130" fill="#1a0505"/>
+                             <circle cx="85" cy="147" r="3" fill="#f5c842"/>
+                             <circle cx="95" cy="147" r="3" fill="#f5c842"/>
+                             <path d="M 70 185 Q 80 200 90 190 Q 100 200 110 185" fill="none" stroke="#1a0505" stroke-width="4"/>
+                            <!-- Titre -->
+                             <text x="90" y="215" font-family="Georgia, serif" font-size="10" fill="#c4a35a" text-anchor="middle">Le Maître</text>
+                             <text x="90" y="228" font-family="Georgia, serif" font-size="10" fill="#c4a35a" text-anchor="middle">&amp; Marguerite</text>
+                             <text x="90" y="243" font-family="Georgia, serif" font-size="8" fill="#888" text-anchor="middle">Boulgakov</text>
+                        </svg>
+                    </div>
+                    <div class="oeuvre-info">
+                        <h2 id="titre-présentation">Crime et Châtiment</h2>
+                        <p class="auteur-ligne">Fiodor Mikhaïlovitch Dostoïevski (1821–1881)</p>
+                        <span class="badge-ville">Saint-Pétersbourg</span>
+                        <div class="fiche-info">
+                            <dl>
+                                <dt>Genre</dt>  <dd>Roman psychologique, roman policier philosophique</dd>
+                                <dt>Langue</dt> <dd>Russe</dd>
+                                <dt>Publié</dt> <dd>1866, <em>Le Messager russe</em> (feuilleton)</dd>
+                                <dt>Lieu</dt>   <dd>Saint-Pétersbourg, quartiers pauvres, été 1865</dd>
+                                <dt>Thèmes</dt> <dd>Crime, culpabilité, rédemption, misère sociale</dd>
+                                <dt>Héros</dt>  <dd>Rodion Raskolnikov, étudiant désargenté</dd>
+                            </dl>
+                        </div>
+                        <p>
+                            Chef-d'œuvre de la littérature psychologique, <em>Crime et Châtiment</em> suit Rodion Raskolnikov, étudiant pauvre à Saint-Pétersbourg, qui assassine une usurière en se croyant autorisé à le faire par sa supériorité morale. Le roman explore les méandres de la conscience coupable jusqu'à la confession et la rédemption.
+                        </p>
+                        <p>
+                            En savoir plus :
+                            <a href="https://fr.wikipedia.org/wiki/Crime_et_Ch%C3%A2timent" target="_blank" rel="noopener">Article Wikipédia</a>
+                            <a href="https://www.babelio.com/livres/Dostoievski-Crime-et-chatiment/2571" target="_blank" rel="noopener">Fiche Babelio</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="ville" aria-labelledby="titre-ville">
+                <h2 id="titre-ville">Saint-Pétersbourg : la ville comme étouffoir</h2>
+                <p>
+                    Dostoïevski peint une Saint-Pétersbourg <span class="mot-cle" data-def="Chaleur oppressante et étouffante des étés pétersbourgeois dans l'œuvre de Dostoïevski">étouffante</span>, nauséabonde, écrasante de chaleur estivale. Ce n'est pas la ville des tsars et des palais — c'est la ville des <span class="mot-cle" data-def="Appartements misérables et surpeuplés dans les immeubles de rapport petersbourgeois du XIXe siècle">taudis</span>, des cabarets sombres, des escaliers qui puent le poisson et le tabac.
+                </p>
+
+                <!-- MONTRER/MASQUER : les lieux réels -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                    Une ville réelle, des lieux précis
+                    <span class="icone-toggle">+</span>
+                    </button>
+                    <div class="contenu-toggle">
+                    <p>Dostoïevski vivait dans ce quartier lors de la rédaction du roman. Ses lieux sont réels et localisables aujourd'hui encore :</p>
+                    <ul class="liste-style">
+                        <li><strong>Rue Stoliarnyi Pereolouk</strong> — chambre de Raskolnikov</li>
+                        <li><strong>Rue Sadovaïa et canaux Griboïedov</strong> — promenades nocturnes du héros</li>
+                        <li><strong>Immeuble de l'usurière Aliona Ivanovna</strong> — rue Srednïa Podïatcheskaïa</li>
+                        <li><strong>Place du Hay-Market (Sennaya Plochtchad)</strong> — marché populaire, scènes de foule</li>
+                        <li><strong>Île Vassilievski</strong> — bureau de Razoumikhine, ami de Raskolnikov</li>
+                    </ul>
+                    </div>
+                </div>
+
+                <!-- MONTRER/MASQUER : contexte historique -->
+                <div class="bloc-extensible">
+                    <button class="btn-toggle" aria-expanded="false">
+                        La théorie du « surhomme » de Raskolnikov
+                        <span class="icone-toggle">+</span>
+                    </button>
+                    <div class="contenu-toggle">
+                    <p>Raskolnikov divise l'humanité en deux catégories : les hommes « ordinaires », soumis à la loi morale, et les hommes « extraordinaires » — Napoléon, César — qui ont le droit de transgresser cette loi pour accomplir un bien supérieur. Il se croit du second type. Le roman démontre par l'absurde la faillite de cette théorie.</p>
+                    <p>Cette idéologie préfigure et contredit à la fois le <span class="mot-cle" data-def="Concept philosophique de Nietzsche désignant un homme qui crée ses propres valeurs au-delà du bien et du mal">Übermensch nietzschéen</span> — Dostoïevski écrit dix-neuf ans avant <em>Ainsi parlait Zarathoustra</em>.</p>
+                    </div>
+                </div>
+                <blockquote>
+                    Je ne voulais pas tuer une femme, je voulais tuer un principe.
+                    <cite>— Raskolnikov, <em>Crime et Châtiment</em>, Fiodor Dostoïevski</cite>
+                </blockquote>
+            </section>
+            <hr class="ligne-deco-longue" />
+            <section id="personnages" aria-labelledby="titre-personnages">
+                <h2 id="titre-personnages">Personnages principaux</h2>
+                <table class="tableau-style">
+                    <caption>Tableau des personnages — Crime et Châtiment</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Personnage</th>
+                            <th scope="col">Rôle</th>
+                            <th scope="col">Fonction narrative</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Rodion Raskolnikov</strong></td>
+                            <td>Étudiant, meurtrier de l'usurière</td>
+                            <td>Protagoniste, conscience torturée</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sonia Marmeladova</strong></td>
+                            <td>Prostituée, fille du fonctionnaire</td>
+                            <td>Rédemption, foi, amour sacrificiel</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Porfiri Petrovich</strong></td>
+                            <td>Juge d'instruction</td>
+                            <td>Le miroir de la culpabilité</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aliona Ivanovna</strong></td>
+                            <td>Usurière, victime du meurtre</td>
+                            <td>Catalyseur du crime</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Razoumikhine</strong></td>
+                            <td>Ami de Raskolnikov</td>
+                            <td>Le bon sens, la loyauté</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Svidrigaïlov</strong></td>
+                            <td>Aristocrate corrompu</td>
+                            <td>Le double sombre de Raskolnikov</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="citations" aria-labelledby="titre-citations">
+                <h2 id="titre-citations">Citations mémorables</h2>
+                <blockquote>
+                    La souffrance et la douleur sont inévitables pour un esprit lucide et un cœur profond.
+                    <cite>— Fiodor Dostoïevski, <em>Crime et Châtiment</em></cite>
+                </blockquote>
+            </section>
+            <hr class="ligne-deco-longue"/>
+            <section id="themes" aria-labelledby="titre-themes">
+                <h2 id="titre-themes">Thèmes principaux</h2>
+                <ol class="liste-style">
+                    <li><strong>La culpabilité</strong> — psychologie de la faute avant même la punition légale</li>
+                    <li><strong>La rédemption</strong> — le chemin de Sibérie comme renaissance morale</li>
+                    <li><strong>La misère urbaine</strong> — Saint-Pétersbourg comme machine à broyer les humbles</li>
+                    <li><strong>Le nihilisme et ses limites</strong> — la théorie du surhomme mise à l'épreuve</li>
+                    <li><strong>La foi et l'athéisme</strong> — Sonia contre Raskolnikov, deux visions du monde</li>
+                </ol>
+                <p>Retour à <a href="main.html">l'accueil</a> · <a href="moscou.html">Moscou</a> · <a href="dublin.html">Dublin</a>
+            </section>
+        </main>
+        <footer id="pied-de-page">
+            <ul class="footer-liens">
+                <li><a href="main.html">Accueil</a></li>
+                <li><a href="moscou.html">← Moscou</a></li>
+                <li><a href="dublin.html">Dublin →</a></li>
+                <li><a href="glossaire.html">Glossaire</a></li>
+            </ul>
+            <p>Projet NSI 2025–2026 · Lycée EIB Étoile · [Prénom1] [Prénom2]</p>
+            <p>Sources : <a href="https://fr.wikipedia.org/wiki/Crime_et_Ch%C3%A2timent" target="_blank" rel="noopener">Wikipédia CC BY-SA</a></p>
+        </footer>
+        <script src="code.js"></script>
+    </body>
+</html>
