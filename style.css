@@ -470,55 +470,7 @@ blockquote cite {
         opacity: 1;
     }
 }
-.couverture-livre{
-    position: relative;
-    overflow: visible;
-}
 
-/* Tranche */
-.couverture-livre::before{
-    content:"MONSTER";
-
-    position:absolute;
-    left:-18px;
-    top:0;
-
-    width:18px;
-    height:100%;
-
-    background:#09090A;
-    border-right:2px solid #1B2026;
-
-    color:#ECECEC;
-    font-family:Georgia, serif;
-    font-size:10px;
-    letter-spacing:2px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    writing-mode:vertical-rl;
-    transform:rotate(180deg);
-}
-
-/* Auteur */
-.couverture-livre::after{
-    content:"NAOKI URASAWA";
-
-    position:absolute;
-    left:-36px;
-    bottom:10px;
-
-    color:#AEB6BE;
-
-    font-family:Georgia, serif;
-    font-size:5px;
-    letter-spacing:1px;
-
-    writing-mode:vertical-rl;
-    transform:rotate(180deg);
-}
 #popup-contenu {
     background-color: var(--couleur-fond);
     border: 2px solid var(--couleur-bordure);
