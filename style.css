@@ -968,3 +968,24 @@ body.page-carte {
     background-color: #fdf0f0;
     color: #5a0a0a;
 }
+
+.glossaire-terme {
+    border-bottom: 1px solid var(--couleur-bordure);
+    padding: 1.5rem 0;
+}
+
+.glossaire-terme:last-child {
+    border-bottom: none;
+}
+
+.glossaire-terme dt {
+    font-family: var(--police-titre);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--couleur-accent);
+    margin-bottom: 0.3rem;
+}
+
+.glossaire-terme dd {color: var(--couleur-texte);
+    padding-left: 1.5rem;
+}
