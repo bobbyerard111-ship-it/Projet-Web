@@ -3,317 +3,211 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Munich — Monster · Littérature & Villes</title>
+        <title>Paris — La Peau de Chagrin · Littérature & Villes</title>
         <link rel="stylesheet" href="style.css"/>
     </head>
-
     <body class="page-oeuvre">
-
         <!-- POPUP (contrôler par sessionStorage via code.js)-->
          <div id="overlay-popup" role="dialog" aria-modal="true" aria-labelledby="popup-titre">
             <div id="popup-contenu">
                 <p class="surtitre">Vous lisez</p>
-                <h2 id="popup-titre">Munich</h2>
-                <p>Ville du doute et du passé — découvrez comment Naoki Urasawa transforme Munich en personnage du manga.</p>
+                <h2 id="popup-titre">Paris</h2>
+                <p>Ville du désir et de l'ambition — découvrez comment Balzac transforme Paris en personnage du roman.</p>
                 <button id="btn-fermer-popup">Continuer</button>
             </div>
          </div>
-
         <header class="site-header">
-            <p class="surtitre">Munich · Allemagne</p>
-            <h1>Monster</h1>
-            <p class="sous-titre-header">Naoki Urasawa · Publié en 1994</p>
+            <p class="surtitre">Paris · France</p>
+            <h1>La Peau de Chagrin</h1>
+            <p class="sous-titre-header">Honoré de Balzac · Publié en 1831</p>
         </header>
-
          <main>
-
             <nav aria-label="Navigation dans la page" style="margin-bottom: 2rem;">
                 <p class="surtitre">Sur cette page :</p>
-
                 <ul class="liste-style">
                     <li><a href="#presentation">Présentation</a></li>
-                    <li><a href="#ville">Munich dans le manga</a></li>
+                    <li><a href="#ville">Paris dans le roman</a></li>
                     <li><a href="#personnages">Personnages</a></li>
                     <li><a href="#citations">Citations</a></li>
                     <li><a href="#lieux">Lieux clés</a></li>
                 </ul>
             </nav>
-
             <section id="presentation" aria-labelledby="titre-présentation">
-
                 <div class="oeuvre-meta">
-
                     <div class="oeuvre-affiche">
-                        <svg class="couverture-livre">
-                            
+                        <!-- Couverture illustrée en SVG inline -->
+                        
+                        <svg class="couverture-livre" viewBox="0 0 180 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Couverture illustrée du roman La Peau de chagrin">
                             <!-- Fond -->
-                            <rect width="180" height="250" fill="#0D0F12"/>
-
-                            <!-- Ciel -->
-                            <rect width="180" height="150" fill="#15191E"/>
-
-                            <!-- Nuages -->
-                            <path d="M 0 30
-                            Q 40 5 90 18
-                            Q 145 28 180 14
-                            L 180 80
-                            Q 120 65 80 75
-                            Q 35 85 0 70 Z"
-                            fill="#232830"/>
-
-                            <!-- Immeubles gauche -->
-                            <path d="M 0 95
-                            L 12 80
-                            L 18 95
-                            L 26 70
-                            L 35 95
-                            L 44 82
-                            L 55 95
-                            L 55 180
-                            L 0 180 Z"
-                            fill="#070809"/>
-
-                            <!-- Immeubles droite -->
-                            <path d="M 180 95
-                            L 168 76
-                            L 160 95
-                            L 150 70
-                            L 140 95
-                            L 130 82
-                            L 120 95
-                            L 120 180
-                            L 180 180 Z"
-                            fill="#070809"/>
-
-                            <!-- Immeuble central -->
-                            <path d="M 58 110
-                            L 72 70
-                            L 108 70
-                            L 122 110
-                            L 122 180
-                            L 58 180 Z"
-                            fill="#050607"/>
-
-                            <!-- Fenêtres jaunes -->
-                            <rect x="74" y="96" width="6" height="8" fill="#E6CF69"/>
-                            <rect x="100" y="96" width="6" height="8" fill="#E6CF69"/>
-
-                            <!-- Route -->
-                            <path d="M 70 180
-                            L 110 180
-                            L 135 250
-                            L 45 250 Z"
-                            fill="#232830"/>
-
-                            <!-- Pluie -->
-                            <path d="M 10 0 L 0 45" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 25 8 L 15 53" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 40 0 L 30 45" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 55 10 L 45 55" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 70 0 L 60 45" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 85 8 L 75 53" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 100 0 L 90 45" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 115 10 L 105 55" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 130 0 L 120 45" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 145 8 L 135 53" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 160 0 L 150 45" stroke="#30363D" stroke-width="1"/>
-                            <path d="M 175 10 L 165 55" stroke="#30363D" stroke-width="1"/>
-
-                            <!-- Johan -->
-
-                            <!-- Tête -->
-                            <circle cx="90" cy="175" r="3.5" fill="#D6C4B1"/>
-
-                            <!-- Corps -->
-                            <path d="M 84 180
-                            L 96 180
-                            L 98 205
-                            L 82 205 Z"
-                            fill="#000000"/>
-
-                            <!-- Jambes -->
-                            <path d="M 86 205 L 84 222"
-                            stroke="#020202"
-                            stroke-width="3"/>
-
-                            <path d="M 94 205 L 96 222"
-                            stroke="#020202"
-                            stroke-width="3"/>
-
-                            <!-- Ombre monstre -->
-                            <path d="M 82 205
-                            Q 90 215 98 205
-                            L 115 250
-                            L 103 238
-                            L 95 250
-                            L 90 238
-                            L 85 250
-                            L 77 238
-                            L 65 250 Z"
-                            fill="#000000"
-                            opacity="0.65"/>
-
-                            <path d="M 72 245 L 70 236"
-                            stroke="#000000"
-                            stroke-width="2"/>
-
-                            <path d="M 108 245 L 110 236"
-                            stroke="#000000"
-                            stroke-width="2"/>
-
-                            <path d="M 115 250 L 118 242"
-                            stroke="#000000"
-                            stroke-width="2"/>
-                            
+                            <rect width="180" height="250" fill="#111111"/>
+                            <!-- Haut -->
+                            <ellipse cx="90" cy="22" rx="65" ry="5" fill="#7A5630"/>
+                            <!-- Bas -->
+                            <ellipse cx="90" cy="212" rx="65" ry="5" fill="#7A5630"/>
+                            <!-- Colonnes -->
+                            <rect x="29" y="22" width="4" height="190" rx="2" fill="#8F6A3D"/>
+                            <rect x="147" y="22" width="4" height="190" rx="2" fill="#8F6A3D"/>
+                            <!-- Verre haut -->
+                            <path d="M 48 30
+                                    Q 48 90 90 117
+                                    Q 132 90 132 30 Z"
+                                fill="none"
+                                stroke="#D9C08A"
+                                stroke-width="1"/>
+                            <!-- Verre bas -->
+                            <path d="M 48 204
+                                    Q 48 144 90 117
+                                    Q 132 144 132 204 Z"
+                                fill="none"
+                                stroke="#D9C08A"
+                                stroke-width="1"/>
+                            <!-- Texte haut -->
+                            <text x="90" y="45"
+                                text-anchor="middle"
+                                font-family="Georgia, serif"
+                                font-size="3.2"
+                                fill="#E8D6A8"
+                                letter-spacing="0.3">
+                                <tspan x="90" dy="0">SI TU ME POSSÈDES, TU</tspan>
+                                <tspan x="90" dy="8">POSSÉDERAS TOUT. MAIS</tspan>
+                                <tspan x="90" dy="10">TA VIE M'APPARTIENDRA.</tspan>
+                                <tspan x="90" dy="8">DIEU L'A VOULU AINSI.</tspan>
+                                <tspan x="90" dy="10">DÉSIRE, ET TES DÉSIRS</tspan>
+                                <tspan x="90" dy="10">SERONT ACCOMPLIS.</tspan>
+                                <tspan x="90" dy="8">MAIS RÈGLE</tspan>
+                            </text>
+                            <!-- Texte bas -->
+                            <text x="90" y="138"
+                                text-anchor="middle"
+                                font-family="Georgia, serif"
+                                font-size="3.2"
+                                fill="#E8D6A8"
+                                letter-spacing="0.3">
+                                <tspan x="90" dy="0">TES SOUHAITS</tspan>
+                                <tspan x="90" dy="8">SUR TA VIE. ELLE</tspan>
+                                <tspan x="90" dy="8">EST LÀ. À CHAQUE</tspan>
+                                <tspan x="90" dy="10">VOULOIR JE DÉCROÎTRAI</tspan>
+                                <tspan x="90" dy="8">COMME TES JOURS. ME VEUX-TU ?</tspan>
+                                <tspan x="90" dy="8">PRENDS DIEU T'EXAUCERA. SOIT !</tspan>
+                            </text>
                             <!-- Tranche du livre -->
-                            <rect x="0" y="0" width="32" height="250" fill="#090B10"/>
+                            <rect x="0" y="0" width="16" height="250" fill="#8F6A3D"/>
                             
-                            <!-- Titre sur la tranche -->
-                            <text x="-12" y="233"
-                            font-family="Georgia, serif" font-size="32"
-                            fill="#ECECEC"
-                            letter-spacing="2" transform="rotate(-90 8 215)">
-                            MONSTER
+                            <text x="90" y="232"
+                            font-family="Georgia, serif"
+                            font-size="16"
+                            fill="#8F6A3D"
+                            text-anchor="middle">
+                            La Peau de Chagrin
                             </text>
 
-                            <!-- Auteur sur la tranche -->
-                            <text x="12" y="250"
-                            font-family="Georgia, serif" font-size="7"
-                            fill="#AEB6BE"
-                            letter-spacing="1" transform="rotate(-90 20 225)">
-                            NAOKI URASAWA
+                            <text x="90" y="245"
+                            font-family="Georgia, serif"
+                            font-size="8"
+                            fill="#888888"
+                            text-anchor="middle">
+                            Balzac
                             </text>
 
                         </svg>
                     </div>
-
                     <div class="oeuvre-info">
-
-                        <h2 id="titre-présentation">Monster</h2>
-
-                        <p class="auteur-ligne">Naoki Urasawa (1960-)</p>
-
-                        <span class="badge-ville">Munich</span>
-
+                        <h2 id="titre-présentation">La Peau de Chagrin</h2>
+                        <p class="auteur-ligne">Honoré de Balzac (1799-1850)</p>
+                        <span class="badge-ville">Paris</span>
                         <div class="fiche-info">
                             <dl>
-                                <dt>Genre</dt>  <dd>Manga policier et thriller psychologique</dd>
-                                <dt>Langue</dt> <dd>Japonais</dd>
-                                <dt>Rédigé</dt> <dd>1994-2001</dd>
-                                <dt>Publié</dt> <dd>1994</dd>
-                                <dt>Lieu</dt>   <dd>Munich et l'Allemagne contemporaine</dd>
-                                <dt>Thèmes</dt> <dd>Manipulation, identité, mémoire, culpabilité et violence</dd>
+                                <dt>Genre</dt>  <dd>Roman philosophique et fantastique</dd>
+                                <dt>Langue</dt> <dd>Français</dd>
+                                <dt>Rédigé</dt> <dd>1830-1831 (1 an de travail)</dd>
+                                <dt>Publié</dt> <dd>1831</dd>
+                                <dt>Lieu</dt>   <dd>Paris sous la Restauration, années 1830</dd>
+                                <dt>Thèmes</dt> <dd>Désir humain, ambition sociale, consommation de la vie, fatalité et mort</dd>
                             </dl>
                         </div>
-
                         <p>
-                            Manga de Naoki Urasawa, <em>Monster</em> raconte l'histoire du docteur Kenzo Tenma,
-                            un neurochirurgien japonais vivant en Allemagne, confronté à Johan Liebert,
-                            un mystérieux criminel qu'il a sauvé lorsqu'il était enfant.
+                            Roman philosophique et fantastique de Balzac, <em>La Peau de chagrin</em> raconte le destin tragique de Raphaël de Valentin et d'une peau magique qui exauce les désirs au prix de la vie de son propriétaire. 
                         </p>
-
                         <p>
                             En savoir plus :
-                            <a href="https://fr.wikipedia.org/wiki/Monster_(manga)" target="_blank" rel="noopener">Article Wikipédia</a>
-                            <a href="https://monster.fandom.com/wiki/Monster_Wiki" target="_blank" rel="noopener">Wiki Monster</a>
-                            <a href="https://myanimelist.net/manga/1/Monster" target="_blank" rel="noopener">Fiche MyAnimeList</a>
+                            <a href="https://fr.wikipedia.org/wiki/La_Peau_de_chagrin" target="_blank" rel="noopener">Article Wikipédia</a>
+                            <a href="https://www.espacefrancais.com/balzac-la-peau-de-chagrin/" target="_blank" rel="noopener">Fiche dans un espace de français</a>
+                            <a href="https://cours-et-fiches.com/livres/la-peau-de-chagrin-balzac/" target="_blank" rel="noopener">Fiche sur Peau de Chagrin</a>
                         </p>
-
                     </div>
                 </div>
             </section>
-
             <hr class="ligne-deco-longue"/>
-
             <section id="ville" aria-labelledby="titre-ville">
-
-                <h2 id="titre-ville">Munich : une ville entre ordre et obscurité</h2>
-
+                <h2 id="titre-ville">Paris : une ville gouvernée par le désir et l'ambition</h2>
                 <p>
-                    Le Munich de Naoki Urasawa est celui de la fin du XX<sup>e</sup> siècle :
-                    ville de la
-                    <span class="mot-cle" data-def="Atmosphère froide et inquiétante liée aux enquêtes et aux crimes">tension</span>,
-                    du
-                    <span class="mot-cle" data-def="Poids du passé et des traumatismes dans la société allemande">passé</span>
-                    et du doute. Entre hôpitaux, bibliothèques, rues silencieuses et quartiers modernes,
-                    Urasawa fait de Munich un lieu où la vérité devient difficile à distinguer du mensonge.
+                    Le Paris de Balzac est celui du XIX<sup>e</sup> siècle : ville du
+                    <span class="mot-cle" data-def="Mode de vie luxueux des classes riches et aristocratiques">luxe</span>,
+                    de l'
+                    <span class="mot-cle" data-def="Volonté de réussir socialement et de devenir puissant ou riche">ambition sociale</span>
+                    et des plaisirs, mais aussi de la pauvreté et de la misère. Entre salons aristocratiques,
+                    maisons de jeu et boutiques mystérieuses, Balzac fait de Paris un lieu où
+                    le désir et l'argent gouvernent la vie des hommes.
                 </p>
 
-                <!-- MONTRER/MASQUER : les lieux -->
+                <!-- MONTRER/MASQUER : les lieux réels -->
                 <div class="bloc-extensible">
-
                     <button class="btn-toggle" aria-expanded="false">
-                    Les lieux de Munich dans le manga
+                    Les lieux réels de Paris dans le roman
                     <span class="icone-toggle">+</span>
                     </button>
-
                     <div class="contenu-toggle">
-
                     <p>
-                        Urasawa représente une Allemagne réaliste et détaillée.
-                        Plusieurs lieux emblématiques apparaissent dans le manga :
+                        Balzac ancre son récit dans une topographie parisienne précise et réaliste.
+                        Plusieurs lieux emblématiques de Paris sont évoqués dans le roman :
                     </p>
-
                     <ul class="liste-style">
-                        <li><strong>L'hôpital Eisler Memorial</strong> — lieu où Tenma travaille comme chirurgien</li>
-                        <li><strong>Les bibliothèques de Munich</strong> — recherches sur le passé de Johan</li>
-                        <li><strong>Les rues de Munich</strong> — atmosphère froide et silencieuse</li>
-                        <li><strong>Les appartements allemands</strong> — lieux d'enquête et de solitude</li>
-                        <li><strong>Les quartiers modernes</strong> — reflet d'une Allemagne prospère mais inquiète</li>
+                        <li><strong>La boutique de l'antiquaire</strong> — lieu où Raphaël découvre la peau de chagrin</li>
+                        <li><strong>Les salons du faubourg Saint-Germain</strong> — monde de l'aristocratie parisienne</li>
+                        <li><strong>Le Palais-Royal</strong> — où Raphaël fréquente les maisons de jeu</li>
+                        <li><strong>La Seine</strong> — où Raphaël songe au suicide</li>
+                        <li><strong>Le Jardin des Tuileries</strong> — où Raphaël observe la société parisienne</li>
                     </ul>
-
                     <p>
-                        La <a href="https://fr.wikipedia.org/wiki/Munich" target="_blank" rel="noopener">ville de Munich</a>
-                        joue un rôle important dans l'atmosphère réaliste et psychologique du manga.
+                        Le <a href="https://fr.wikipedia.org/wiki/Palais-Royal"
+                            target="_blank" rel="noopener">Palais-Royal</a>
+                        est un des lieux emblématiques du roman, associé aux maisons de jeu fréquentées par Raphaël au début de l'histoire.
                     </p>
-
                     </div>
                 </div>
 
-                <!-- MONTRER/MASQUER : contexte -->
+                <!-- MONTRER/MASQUER : contexte historique -->
                 <div class="bloc-extensible">
-
                     <button class="btn-toggle" aria-expanded="false">
-                       Naoki Urasawa et le succès de Monster
+                        Balzac et le succès de La Peau de chagrin
                         <span class="icone-toggle">+</span>
                     </button>
-
                     <div class="contenu-toggle">
-
                     <p>
-                        Naoki Urasawa publie <em>Monster</em> en 1994.
-                        Le manga devient rapidement une œuvre majeure du thriller psychologique japonais
-                        grâce à son intrigue complexe et son ambiance européenne réaliste.
+                        Balzac publie <em>La Peau de chagrin</em> en 1831, à une période où il
+                        cherche encore à s'imposer dans le monde littéraire. Le roman connaît
+                        rapidement un grand succès et devient l'une des œuvres majeures de
+                        <em>La Comédie humaine</em>.
                     </p>
-
                     <ol class="liste-style">
-                        <li>1994 — Début de publication de <em>Monster</em></li>
-                        <li>1997 — Succès international du manga</li>
-                        <li>2001 — Fin du manga</li>
-                        <li>2004 — Adaptation en anime</li>
-                        <li>2000s — <em>Monster</em> devient une référence du thriller psychologique</li>
+                        <li>1830 — Balzac commence l'écriture du roman</li>
+                        <li>1831 — Publication de <em>La Peau de chagrin</em></li>
+                        <li>1831 — Le roman connaît un important succès littéraire</li>
+                        <li>1842 — L'œuvre est intégrée à <em>La Comédie humaine</em></li>
+                        <li>1850 — Mort de Balzac à Paris</li>
                     </ol>
-
                     </div>
                 </div>
-
                 <blockquote>
-                    Quelque part, tout le monde peut devenir un monstre.
-                    <cite>— <em>Monster</em></cite>
+                    Il n'est pas de grande passion sans grand désespoir.
+                    <cite>— Honoré de Balzac, <em>La Peau de Chagrin</em></cite>
                 </blockquote>
-
             </section>
-
             <hr class="ligne-deco-longue" />
-
             <section id="personnages" aria-labelledby="titre-personnages">
-
                 <h2 id="titre-personnages">Personnages principaux</h2>
-
                 <table class="tableau-style">
-
-                    <caption>Tableau des personnages — Monster</caption>
-
+                    <caption>Tableau des personnages — La Peau de Chagrin</caption>
                     <thead>
                         <tr>
                             <th scope="col">Personnages</th>
@@ -322,109 +216,85 @@
                             <th scope="col">Archétype</th>
                         </tr>
                     </thead>
-
                     <tbody>
-
                         <tr>
-                            <td><strong>Kenzo Tenma</strong></td>
-                            <td>Neurochirurgien poursuivant Johan</td>
-                            <td>Munich</td>
-                            <td>La culpabilité, la justice</td>
+                            <td><strong>Raphaël de Valentin</strong></td>
+                            <td>Jeune homme ruiné, reçoit la peau de chagrin</td>
+                            <td>Paris</td>
+                            <td>Le désir, la fatalité</td>
                         </tr>
 
                         <tr>
-                            <td><strong>Johan Liebert</strong></td>
-                            <td>Criminel manipulateur et mystérieux</td>
-                            <td>Munich</td>
-                            <td>Le mal absolu</td>
+                            <td><strong>L'antiquaire</strong></td>
+                            <td>Vieil homme mystérieux qui remet la peau magique à Raphaël</td>
+                            <td>Paris</td>
+                            <td>La sagesse, le savoir</td>
                         </tr>
 
                         <tr>
-                            <td><strong>Nina Fortner</strong></td>
-                            <td>Sœur jumelle de Johan</td>
-                            <td>Munich</td>
-                            <td>La mémoire, le traumatisme</td>
+                            <td><strong>Pauline</strong></td>
+                            <td>Amoureuse sincère de Raphaël</td>
+                            <td>Paris</td>
+                            <td>L'amour pur</td>
                         </tr>
 
                         <tr>
-                            <td><strong>Inspecteur Lunge</strong></td>
-                            <td>Policier obsédé par l'affaire Tenma</td>
-                            <td>Munich</td>
-                            <td>L'obsession</td>
+                            <td><strong>Foedora</strong></td>
+                            <td>Femme aristocratique admirée par Raphaël</td>
+                            <td>Paris</td>
+                            <td>Le désir inaccessible</td>
                         </tr>
 
                         <tr>
-                            <td><strong>Eva Heinemann</strong></td>
-                            <td>Ancienne fiancée de Tenma</td>
-                            <td>Munich</td>
-                            <td>L'orgueil, la solitude</td>
+                            <td><strong>Rastignac</strong></td>
+                            <td>Jeune ambitieux fréquentant la haute société parisienne</td>
+                            <td>Paris</td>
+                            <td>L'ambition sociale</td>
                         </tr>
 
                         <tr>
-                            <td><strong>Dieter</strong></td>
-                            <td>Enfant recueilli par Tenma</td>
-                            <td>Munich</td>
-                            <td>L'innocence</td>
+                            <td><strong>Émile</strong></td>
+                            <td>Ami fidèle de Raphaël</td>
+                            <td>Paris</td>
+                            <td>L'amitié, la raison</td>
                         </tr>
-
                     </tbody>
                 </table>
             </section>
-
             <hr class="ligne-deco-longue"/>
-
             <section id="citations" aria-labelledby="titre-citations">
-
                 <h2 id="titre-citations">Citations mémorables</h2>
-
                  <blockquote>
-                    Les hommes ne sont égaux que dans la mort.
-                    <cite>— Johan Liebert, <em>Monster</em></cite>
+                    Vouloir nous brûle et Pouvoir nous détruit ; mais Savoir laisse notre faible organisation dans un perpétuel état de calme.
+                    <cite>— L'antiquaire, <em>La Peau de chagrin</em></cite>
                 </blockquote>
-
                 <blockquote>
-                    Regardez-moi... Le monstre en moi a encore grandi.
-                    <cite>— Johan Liebert, <em>Monster</em></cite>
+                    Vienne la mort quand elle voudra, j'ai vécu.
+                    <cite>— Pauline, <em>La Peau de chagrin</em></cite>
                 </blockquote>
-
             </section>
-
             <hr class="ligne-deco-longue"/>
-
             <section id="lieux" aria-labelledby="titre-lieux">
-
-                <h2 id="titre-lieux">Lieux clés à Munich</h2>
-
+                <h2 id="titre-lieux">Lieux clés à Paris</h2>
                 <ul class="liste-style">
-                    <li><strong>L'hôpital Eisler Memorial</strong> — lieu de travail du docteur Tenma</li>
-                    <li><strong>Les rues de Munich</strong> — enquêtes et poursuites</li>
-                    <li><strong>Les bibliothèques allemandes</strong> — recherches sur Johan</li>
-                    <li><strong>Les appartements de Munich</strong> — solitude et secrets</li>
-                    <li><strong>Les quartiers modernes</strong> — atmosphère froide et réaliste</li>
+                    <li><strong>Le Palais-Royal</strong> — où Raphaël perd son argent au jeu</li>
+                    <li><strong>La Seine</strong> — où Raphaël envisage de se suicider</li>
+                    <li><strong>La boutique de l'antiquaire, quai Voltaire</strong> — où Raphaël découvre la peau de chagrin</li>
+                    <li><strong>Le faubourg Saint-Germain</strong> — salons aristocratiques fréquentés par Raphaël</li>
+                    <li><strong>Le Jardin des Tuileries</strong> — promenades et observation de la société parisienne</li>
                 </ul>
-
             </section>
-
         </main>
-
         <footer id="pied-de-page">
-            <ul class="footer-liens">
-                <li><a href="main.html">Accueil</a></li>
-                <li><a href="paris.html">← Paris</a></li>
-                <li><a href="glossaire.html">Glossaire</a></li>
-                <li><a href="quiz.html">Quiz</a></li>
-            </ul>
-
             <p>Projet NSI 2025-2026 · Lycée EIB Étoile · Joseph Gabriel</p>
-
             <p>
                 Sources :
-                <a href="https://fr.wikipedia.org/wiki/Monster_(manga)" target="_blank" rel="noopener">Wikipédia CC BY-SA</a>
+                <a href="https://fr.wikipedia.org/wiki/La_Peau_de_chagrin" target="_blank" rel="noopener">Wikipédia CC BY-SA</a>
             </p>
-
         </footer>
-
         <script src="code.js"></script>
-
     </body>
 </html>
+
+
+
