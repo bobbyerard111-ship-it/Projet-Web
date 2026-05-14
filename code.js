@@ -78,14 +78,14 @@ var VILLES = [
         couleur: '#a0b4d4'
     },
     {
-        id: 'prague',
-        lat: 50.08,
-        lon: 14.44,
-        nom: 'Prague',
-        pays: 'République tchèque',
-        oeuvre: 'La Métamorphose',
-        auteur: 'Franz Kafka, 1915',
-        url: 'prague.html',
+        id: 'munich',
+        lat: 48.09,
+        lon: 11.35,
+        nom: 'Munich',
+        pays: 'Allemagne',
+        oeuvre: 'Monster',
+        auteur: 'Naoki Urasawa, 1994',
+        url: 'munich.html',
         couleur: '#c4a35a'
     }
 ];
