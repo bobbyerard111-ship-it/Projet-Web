@@ -414,12 +414,43 @@ function initialiserBlocsExtensibles() {
     });
 }
 
-// ==========================
-// INITIALISATION
-// ==========================
+// CLAIR - SOMBRE
+
+var THEMES       = ['', 'theme-sombre', 'theme-principal'];
+var LABELS       = ['Sombre', 'Principale', 'Clair'];
+var indexTheme   = 0;
+
+
+function changerTheme() {
+  var body   = document.body;
+  var bouton = document.getElementById('btn-theme');
+
+  body.classList.remove(THEMES[indexTheme]);
+  indexTheme = (indexTheme + 1) % THEMES.length;
+  if (THEMES[indexTheme]) body.classList.add(THEMES[indexTheme]);
+  if (bouton) bouton.textContent = LABELS[indexTheme];
+
+  localStorage.setItem('theme', indexTheme.toString());
+}
+
+function restaurerTheme() {
+  var sauvegarde = localStorage.getItem('theme');
+  if (sauvegarde === null) return;
+  var index = parseInt(sauvegarde, 10);
+  if (isNaN(index) || index < 0 || index >= THEMES.length) return;
+
+  indexTheme = index;
+  if (THEMES[index]) document.body.classList.add(THEMES[index]);
+  var bouton = document.getElementById('btn-theme');
+  if (bouton) bouton.textContent = LABELS[index];
+}
 
 // Fonction d'initialisation appelée lorsque le DOM est chargé
 document.addEventListener('DOMContentLoaded', function() {
+    var btnTheme = document.getElementById('btn-theme');
+    if (btnTheme) {
+        btnTheme.addEventListener('click', changerTheme());
+    }
     // Initialise les boutons toggle pour les blocs extensibles
     initialiserBlocsExtensibles();
     // Configure les popups du site
