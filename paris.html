@@ -36,24 +36,79 @@
                 <div class="oeuvre-meta">
                     <div class="oeuvre-affiche">
                         <!-- Couverture illustrée en SVG inline -->
-                        <svg class="couverture-livre" viewBox="0 0 180 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Couverture illustrée du roman Le Maître et Marguerite">
-                            <rect width="180" height="250"  fill="#5a0a0a"/>
-                            <rect x="0" y="0" width="15" height="250" fill="#3a0505"/>
-                            <!-- Lune -->
-                             <circle cx="120" cy="60" r="35" fill="#f5c832" opacity="0.9"/>
-                             <circle cx="108" cy="55" r="30" fill="#5a0a0a"/>
-                            <!-- Chat de Béhémoth -->
-                             <ellipse cx="90" cy="170" rx="25" ry="20" fill="#1a0505"/>
-                             <ellipse cx="90" cy="148" rx="15" ry="16" fill="#1a0505"/>
-                             <polygon points="78,135 74,122 83,130" fill="#1a0505"/>
-                             <polygon points="102,135 106,122 97,130" fill="#1a0505"/>
-                             <circle cx="85" cy="147" r="3" fill="#f5c842"/>
-                             <circle cx="95" cy="147" r="3" fill="#f5c842"/>
-                             <path d="M 70 185 Q 80 200 90 190 Q 100 200 110 185" fill="none" stroke="#1a0505" stroke-width="4"/>
-                            <!-- Titre -->
-                             <text x="90" y="215" font-family="Georgia, serif" font-size="10" fill="#c4a35a" text-anchor="middle">Le Maître</text>
-                             <text x="90" y="228" font-family="Georgia, serif" font-size="10" fill="#c4a35a" text-anchor="middle">&amp; Marguerite</text>
-                             <text x="90" y="243" font-family="Georgia, serif" font-size="8" fill="#888" text-anchor="middle">Boulgakov</text>
+                        
+                        <svg class="couverture-livre" viewBox="0 0 180 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Couverture illustrée du roman La Peau de chagrin">
+                            <!-- Fond -->
+                            <rect width="180" height="250" fill="#111111"/>
+                            <!-- Haut -->
+                            <ellipse cx="90" cy="22" rx="65" ry="5" fill="#7A5630"/>
+                            <!-- Bas -->
+                            <ellipse cx="90" cy="212" rx="65" ry="5" fill="#7A5630"/>
+                            <!-- Colonnes -->
+                            <rect x="29" y="22" width="4" height="190" rx="2" fill="#8F6A3D"/>
+                            <rect x="147" y="22" width="4" height="190" rx="2" fill="#8F6A3D"/>
+                            <!-- Verre haut -->
+                            <path d="M 48 30
+                                    Q 48 90 90 117
+                                    Q 132 90 132 30 Z"
+                                fill="none"
+                                stroke="#D9C08A"
+                                stroke-width="1"/>
+                            <!-- Verre bas -->
+                            <path d="M 48 204
+                                    Q 48 144 90 117
+                                    Q 132 144 132 204 Z"
+                                fill="none"
+                                stroke="#D9C08A"
+                                stroke-width="1"/>
+                            <!-- Texte haut -->
+                            <text x="90" y="45"
+                                text-anchor="middle"
+                                font-family="Georgia, serif"
+                                font-size="3.2"
+                                fill="#E8D6A8"
+                                letter-spacing="0.3">
+                                <tspan x="90" dy="0">SI TU ME POSSÈDES, TU</tspan>
+                                <tspan x="90" dy="8">POSSÉDERAS TOUT. MAIS</tspan>
+                                <tspan x="90" dy="10">TA VIE M'APPARTIENDRA.</tspan>
+                                <tspan x="90" dy="8">DIEU L'A VOULU AINSI.</tspan>
+                                <tspan x="90" dy="10">DÉSIRE, ET TES DÉSIRS</tspan>
+                                <tspan x="90" dy="10">SERONT ACCOMPLIS.</tspan>
+                                <tspan x="90" dy="8">MAIS RÈGLE</tspan>
+                            </text>
+                            <!-- Texte bas -->
+                            <text x="90" y="138"
+                                text-anchor="middle"
+                                font-family="Georgia, serif"
+                                font-size="3.2"
+                                fill="#E8D6A8"
+                                letter-spacing="0.3">
+                                <tspan x="90" dy="0">TES SOUHAITS</tspan>
+                                <tspan x="90" dy="8">SUR TA VIE. ELLE</tspan>
+                                <tspan x="90" dy="8">EST LÀ. À CHAQUE</tspan>
+                                <tspan x="90" dy="10">VOULOIR JE DÉCROÎTRAI</tspan>
+                                <tspan x="90" dy="8">COMME TES JOURS. ME VEUX-TU ?</tspan>
+                                <tspan x="90" dy="8">PRENDS DIEU T'EXAUCERA. SOIT !</tspan>
+                            </text>
+                            <!-- Tranche du livre -->
+                            <rect x="0" y="0" width="16" height="250" fill="#8F6A3D"/>
+                            
+                            <text x="90" y="232"
+                            font-family="Georgia, serif"
+                            font-size="16"
+                            fill="#8F6A3D"
+                            text-anchor="middle">
+                            La Peau de Chagrin
+                            </text>
+
+                            <text x="90" y="245"
+                            font-family="Georgia, serif"
+                            font-size="8"
+                            fill="#888888"
+                            text-anchor="middle">
+                            Balzac
+                            </text>
+
                         </svg>
                     </div>
                     <div class="oeuvre-info">
@@ -231,11 +286,6 @@
             </section>
         </main>
         <footer id="pied-de-page">
-            <ul class="footer-liens">
-                <li><a href="main.html">Accueil</a></li>
-                <li><a href="munich.html">Munich →</a></li>
-                <li><a href="londres.html">← Londres</a></li>
-            </ul>
             <p>Projet NSI 2025-2026 · Lycée EIB Étoile · Joseph Gabriel</p>
             <p>
                 Sources :
