@@ -1,80 +1,154 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Carte Interactive de l'Europe - Projet NSI</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body class="page-carte">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carte Littéraire — Littérature & Villes</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="page-carte">
 
-    <!-- ÉCRAN DE CHARGEMENT -->
     <div id="ecran-chargement">
-        <p class="chargement-titre">Littérature & Villes</p>
-        <p class="chargement-sous-titre">Cartographie littéraire de l'Europe</p>
-        <div class="barre-chargement-fond">
-            <div class="barre-chargement-remplissage"></div>
-        </div>
+      <p class="chargement-titre">Littérature & Villes</p>
+      <p class="chargement-sous-titre">Cartographie littéraire de l'Europe</p>
+      <div class="barre-chargement-fond">
+        <div class="barre-chargement-remplissage"></div>
+      </div>
     </div>
 
-    <!-- OVERLAY DE TRANSITION AU CLIC -->
-    <div id="overlay-transition">
-        <div class="texte-transition">
-            <p>Navigation vers</p>
-            <h2 id="transition-nom-ville">—</h2>
-        </div>
-    </div>
-
-    <!-- TOOLTIP -->
     <div id="tooltip-ville">
-        <div class="tooltip-interieur">
-            <p class="tooltip-ville-nom" id="tt-nom">Dublin</p>
-            <p class="tooltip-ville-pays" id="tt-pays">Irlande</p>
-            <p class="tooltip-ville-oeuvre" id="tt-oeuvre">Ulysse</p>
-            <p class="tooltip-ville-auteur" id="tt-auteur">James Joyce, 1922</p>
-            <p class="tooltip-clic-hint">↵ Cliquer pour explorer</p>
-        </div>
+      <div class="tooltip-interieur">
+        <p class="tooltip-ville-nom" id="tt-nom">Dublin</p>
+        <p class="tooltip-ville-pays" id="tt-pays">Irlande</p>
+        <p class="tooltip-ville-oeuvre" id="tt-oeuvre">Ulysse</p>
+        <p class="tooltip-ville-auteur" id="tt-auteur">James Joyce, 1922</p>
+        <p class="tooltip-clic-hint">↵ Cliquer pour explorer</p>
+      </div>
     </div>
 
-    <!-- CONTENEUR CARTE -->
     <div id="carte-conteneur">
-        <!-- Navigation -->
-        <nav id="carte-nav">
-            <a class="nav-logo" href="main.html">← Littérature & Villes</a>
-            <ul class="nav-liens">
-                <li><a href="moscou.html">Moscou</a></li>
-                <li><a href="saint-petersbourg.html">Saint-Pétersbourg</a></li>
-                <li><a href="dublin.html">Dublin</a></li>
-                <li><a href="londres.html">Londres</a></li>
-                <li><a href="paris.html">Paris</a></li>
-                <li><a href="prague.html">Prague</a></li>
-                <li><a href="glossaire.html">Glossaire</a></li>
-                <li><a href="quiz.html">Quiz</a></li>
-            </ul>
-        </nav>
+      <nav id="carte-nav">
+        <a class="nav-logo" href="main.html">← Littérature & Villes</a>
+        <ul class="nav-liens">
+          <li><a href="moscou.html">Moscou</a></li>
+          <li><a href="saint-petersbourg.html">Saint-Pétersbourg</a></li>
+          <li><a href="dublin.html">Dublin</a></li>
+          <li><a href="londres.html">Londres</a></li>
+          <li><a href="paris.html">Paris</a></li>
+          <li><a href="prague.html">Prague</a></li>
+          <li><a href="glossaire.html">Glossaire</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+      </nav>
 
-        <!-- Canvas principal -->
-        <canvas id="carte-canvas"></canvas>
+      <div id="carte">
+        <svg
+          id="europe-svg"
+          viewBox="0 0 1000 700"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <path
+            class="europe-contour"
+            d=""
+          />
+        </svg>
 
-        <!-- Titre bas de page -->
-        <div id="titre-carte">
-            <h1>Carte Littéraire de l'Europe</h1>
-            <p>Six villes · Six œuvres · Un voyage</p>
-        </div>
+        <a
+          href="dublin.html"
+          class="ville"
+          data-lat="53.35"
+          data-lon="-6.26"
+          data-nom="Dublin"
+          data-pays="Irlande"
+          data-oeuvre="Ulysse"
+          data-auteur="James Joyce, 1922"
+          data-couleur="#5a9a6a"
+        >
+          <span class="point"></span>
+          <span class="label">Dublin</span>
+        </a>
 
-        <!-- HUD coordonnées -->
-        <div id="hud-coordonnees">
-            <span id="hud-lat">48°52′N</span><br/>
-            <span id="hud-lon">002°21′E</span><br/>
-            EUROPE OCCIDENTALE
-        </div>
+        <a
+          href="londres.html"
+          class="ville"
+          data-lat="51.51"
+          data-lon="-0.13"
+          data-nom="Londres"
+          data-pays="Angleterre"
+          data-oeuvre="Oliver Twist"
+          data-auteur="Charles Dickens, 1846"
+          data-couleur="#d4a0b0"
+        >
+          <span class="point"></span>
+          <span class="label">Londres</span>
+        </a>
 
-        <!-- Compteur villes -->
-        <div id="compteur-villes">
-            Villes littéraires<br/>
-            <span id="ville-active-nom">—</span><br/>
-            <span style="color:#3a3020">06 / 06 cartographiées</span>
-        </div>
+        <a
+          href="paris.html"
+          class="ville"
+          data-lat="48.85"
+          data-lon="2.35"
+          data-nom="Paris"
+          data-pays="France"
+          data-oeuvre="La peau de chagrin"
+          data-auteur="Balzac, 1831"
+          data-couleur="#a0b4d4"
+        >
+          <span class="point"></span>
+          <span class="label">Paris</span>
+        </a>
+
+        <a
+          href="prague.html"
+          class="ville"
+          data-lat="50.08"
+          data-lon="14.44"
+          data-nom="Prague"
+          data-pays="République tchèque"
+          data-oeuvre="La Métamorphose"
+          data-auteur="Franz Kafka, 1915"
+          data-couleur="#c4a35a"
+        >
+          <span class="point"></span>
+          <span class="label">Prague</span>
+        </a>
+
+        <a
+          href="moscou.html"
+          class="ville"
+          data-lat="55.75"
+          data-lon="37.62"
+          data-nom="Moscou"
+          data-pays="Russie"
+          data-oeuvre="Le Maître et Marguerite"
+          data-auteur="Boulgakov, 1966"
+          data-couleur="#c4a35a"
+        >
+          <span class="point"></span>
+          <span class="label">Moscou</span>
+        </a>
+
+        <a
+          href="saint-petersbourg.html"
+          class="ville"
+          data-lat="59.95"
+          data-lon="30.32"
+          data-nom="Saint-Pétersbourg"
+          data-pays="Russie"
+          data-oeuvre="Crime et Châtiment"
+          data-auteur="Dostoïevski, 1866"
+          data-couleur="#8bb0d4"
+        >
+          <span class="point"></span>
+          <span class="label">Saint-Pétersbourg</span>
+        </a>
+      </div>
+
+      <div id="titre-carte">
+        <h1>Carte Littéraire de l'Europe</h1>
+        <p>Six villes · Six œuvres · Un voyage</p>
+      </div>
     </div>
     <script src="code.js"></script>
+  </body>
 </html>

@@ -4,434 +4,255 @@
    Date : 2025–2026 */
 
 // Données des villes: coordonnées géographiques + données littérares
-var VILLES = [
-      {
-        id: "dublin",
-        nom: "Dublin",
-        pays: "Irlande",
-        lat: 53.35,
-        lon: -6.26,
-        oeuvre: "Ulysse",
-        auteur: "James Joyce, 1922",
-        url: "dublin.html",
-        couleur: "#5a9a6a"
-      },
-      {
-        id: "moscou",
-        nom: "Moscou",
-        pays: "Russie",
-        lat: 55.75,
-        lon: 37.62,
-        oeuvre: "Le Maître et Marguerite",
-        auteur: "Boulgakov, 1966",
-        url: "moscou.html",
-        couleur: "#c4a35a"
-      },
-      {
-        id: "saint-petersbourg",
-        nom: "Saint-Pétersbourg",
-        pays: "Russie",
-        lat: 59.95,
-        lon: 30.32,
-        oeuvre: "Crime et Châtiment",
-        auteur: "Dostoïevski, 1866",
-        url: "saint-petersbourg.html",
-        couleur: "#8bb0d4"
-      },
-      {
-        id: "londres",
-        nom: "Londres",
-        pays: "Angleterre",
-        lat: 51.51,
-        lon: -0.13,
-        oeuvre: "Oliver Twist",
-        auteur: "Dickens, 1846",
-        url: "londres.html",
-        couleur: "#d4a0b0"
-      },
-      {
-        id: "paris",
-        nom: "Paris",
-        pays: "France",
-        lat: 48.85,
-        lon: 2.35,
-        oeuvre: "La peau de chagrin",
-        auteur: "Balzac, 1831",
-        url: "paris.html",
-        couleur: "#a0b4d4"
-      },
-      {
-        id: "prague",
-        nom: "Prague",
-        pays: "République tchèque",
-        lat: 50.08,
-        lon: 14.44,
-        oeuvre: "La Métamorphose",
-        auteur: "Franz Kafka, 1915",
-        url: "prague.html",
-        couleur: "#c4a35a"
-      }
-    ];
+// ==========================
 
 var CARTE = {
-  lonMin: -30,   // bord gauche
-  lonMax: 60,    // bord droit
-  latMin: 30,    // bord bas
-  latMax: 72     // bord haut
+    lonMin: -30,
+    lonMax: 60,
+    latMin: 30,
+    latMax: 72
 };
 
-var etat = {
-  canvas: null,
-  contexte: null,
-  largeur: 0,
-  hauteur: 0,
-  villeActive: null,        // ville survolée
-  tempsDebut: null,         // pour les animations temporelles
-  chargementTermine: false
-};
+var GEO_CONTOUR = [
+    [71, 28], [70, 18], [65, 14], [62, 5], [58, 5], [55, 8], [54, 10], [52, 4],
+    [51, 2], [48, -5], [43, -9], [36, -9], [36, -6], [36, -5], [36, 2], [41, 3],
+    [43, 5], [44, 8], [44, 12], [40, 18], [37, 15], [37, 23], [40, 26], [41, 29],
+    [42, 35], [46, 30], [47, 24], [50, 24], [54, 18], [56, 21], [60, 24], [65, 25],
+    [70, 28]
+];
 
-var curseur = {
-  x: 0,
-  y: 0,
-  visible: false
-};
-
-// Fonctions utilitaires
-
-function hexVersRgba(hex, alpha) {
-  var r = parseInt(hex.slice(1, 3), 16);
-  var g = parseInt(hex.slice(3, 5), 16);
-  var b = parseInt(hex.slice(5, 7), 16);
-  return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
-}
-
-function latVersString(lat) {
-  var deg = Math.abs(lat).toFixed(1);
-  return deg + '°' + (lat >= 0 ? 'N' : 'S');
-}
-
-function lonVersString(lon) {
-  var deg = Math.abs(lon).toFixed(1);
-  return deg + '°' + (lon >= 0 ? 'E' : 'W');
-}
-
-function latLonVersString(lat, lon) {
-  return latVersString(lat) + ' / ' + lonVersString(lon);
-}
+var VILLES = [
+    {
+        id: 'dublin',
+        lat: 53.35,
+        lon: -6.26,
+        nom: 'Dublin',
+        pays: 'Irlande',
+        oeuvre: 'Ulysse',
+        auteur: 'James Joyce, 1922',
+        url: 'dublin.html',
+        couleur: '#5a9a6a'
+    },
+    {
+        id: 'moscou',
+        lat: 55.75,
+        lon: 37.62,
+        nom: 'Moscou',
+        pays: 'Russie',
+        oeuvre: 'Le Maître et Marguerite',
+        auteur: 'Boulgakov, 1966',
+        url: 'moscou.html',
+        couleur: '#c4a35a'
+    },
+    {
+        id: 'saint-petersbourg',
+        lat: 59.95,
+        lon: 30.32,
+        nom: 'Saint-Pétersbourg',
+        pays: 'Russie',
+        oeuvre: 'Crime et Châtiment',
+        auteur: 'Dostoïevski, 1866',
+        url: 'saint-petersbourg.html',
+        couleur: '#8bb0d4'
+    },
+    {
+        id: 'londres',
+        lat: 51.51,
+        lon: -0.13,
+        nom: 'Londres',
+        pays: 'Angleterre',
+        oeuvre: 'Oliver Twist',
+        auteur: 'Charles Dickens, 1846',
+        url: 'londres.html',
+        couleur: '#d4a0b0'
+    },
+    {
+        id: 'paris',
+        lat: 48.85,
+        lon: 2.35,
+        nom: 'Paris',
+        pays: 'France',
+        oeuvre: 'La peau de chagrin',
+        auteur: 'Balzac, 1831',
+        url: 'paris.html',
+        couleur: '#a0b4d4'
+    },
+    {
+        id: 'prague',
+        lat: 50.08,
+        lon: 14.44,
+        nom: 'Prague',
+        pays: 'République tchèque',
+        oeuvre: 'La Métamorphose',
+        auteur: 'Franz Kafka, 1915',
+        url: 'prague.html',
+        couleur: '#c4a35a'
+    }
+];
 
 function geoVersPixel(lat, lon, largeur, hauteur) {
-  var x = ((lon - CARTE.lonMin) / (CARTE.lonMax - CARTE.lonMin)) * largeur;
-  var y = ((CARTE.latMax - lat)  / (CARTE.latMax - CARTE.latMin)) * hauteur;
-  return { x: x, y: y };
+    var x = ((lon - CARTE.lonMin) / (CARTE.lonMax - CARTE.lonMin)) * largeur;
+    var y = ((CARTE.latMax - lat) / (CARTE.latMax - CARTE.latMin)) * hauteur;
+    return { x: x, y: y };
 }
 
-// Initialisation
+function dessinerContourSVG() {
+    var svg = document.getElementById('europe-svg');
+    var contour = document.querySelector('#europe-svg .europe-contour');
+    var carte = document.getElementById('carte');
+    if (!svg || !contour || !carte) {
+        return;
+    }
 
-function redimensionnerCanvas() {
-  etat.largeur  = window.innerWidth;
-  etat.hauteur  = window.innerHeight;
-  etat.canvas.width  = etat.largeur;
-  etat.canvas.height = etat.hauteur;
+    var rect = carte.getBoundingClientRect();
+    var largeur = rect.width;
+    var hauteur = rect.height;
+
+    svg.setAttribute('viewBox', '0 0 ' + largeur + ' ' + hauteur);
+    svg.setAttribute('width', largeur);
+    svg.setAttribute('height', hauteur);
+
+    var d = GEO_CONTOUR.map(function(point, index) {
+        var coord = geoVersPixel(point[0], point[1], largeur, hauteur);
+        return (index === 0 ? 'M' : 'L') + coord.x + ',' + coord.y;
+    }).join(' ') + ' Z';
+
+    contour.setAttribute('d', d);
 }
 
-function initialiserCanvas() {
-  etat.canvas = document.getElementById('carte-canvas');
-  // Si pas de canvas (pages non-carte), on arrête
-  if (!etat.canvas) return;
-  etat.contexte = etat.canvas.getContext('2d');
-  redimensionnerCanvas();
-  window.addEventListener('resize', redimensionnerCanvas);
+function positionnerVilles() {
+    var carte = document.getElementById('carte');
+    if (!carte) {
+        return;
+    }
+    var rect = carte.getBoundingClientRect();
+    var largeur = rect.width;
+    var hauteur = rect.height;
+
+    document.querySelectorAll('.ville').forEach(function(ville) {
+        var lat = parseFloat(ville.dataset.lat);
+        var lon = parseFloat(ville.dataset.lon);
+        if (!isFinite(lat) || !isFinite(lon)) {
+            return;
+        }
+
+        var position = geoVersPixel(lat, lon, largeur, hauteur);
+        ville.style.left = position.x + 'px';
+        ville.style.top = position.y + 'px';
+    });
 }
 
-// Dessin
-
-// Fond de carte
-function dessinerFond(t) {
-  var ctx = etat.contexte;
-  var W   = etat.largeur;
-  var H   = etat.hauteur;
-
-  // Fond dégradé sombre
-  var grad = ctx.createRadialGradient(W * 0.45, H * 0.5, 0, W * 0.45, H * 0.5, W * 0.7);
-  grad.addColorStop(0,   '#1e180a');
-  grad.addColorStop(0.5, '#160f06');
-  grad.addColorStop(1,   '#0a0805');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
-
-  ctx.strokeStyle = 'rgba(90, 74, 42, 0.18)';
-  ctx.lineWidth   = 0.5;
-  for (var lon = -30; lon <= 60; lon += 10) {
-    var p1 = geoVersPixel(CARTE.latMax, lon, W, H);
-    var p2 = geoVersPixel(CARTE.latMin, lon, W, H);
-    ctx.beginPath();
-    ctx.moveTo(p1.x, p1.y);
-    ctx.lineTo(p2.x, p2.y);
-    ctx.stroke();
-
-    // Etiquette de la longitude
-    ctx.fillStyle = 'rgba(90, 74, 42, 0.35)';
-    ctx.font      = '9px "Courier Prime", monospace';
-    ctx.textAlign = 'center';
-    ctx.fillText(lon + '°', p2.x, p2.y - 6);
-  }
-
-  // Grilles de parallèles (latitudes, longitudes)
-  for (var lat = 30; lat <= 72; lat += 10) {
-    var pp1 = geoVersPixel(lat, CARTE.lonMin, W, H);
-    var pp2 = geoVersPixel(lat, CARTE.lonMax, W, H);
-    ctx.strokeStyle = 'rgba(90, 74, 42, 0.18)';
-    ctx.lineWidth   = 0.5;
-    ctx.beginPath();
-    ctx.moveTo(pp1.x, pp1.y);
-    ctx.lineTo(pp2.x, pp2.y);
-    ctx.stroke();
-
-    // Affichage de la latitude (étiquette)
-    ctx.fillStyle = 'rgba(90, 74, 42, 0.35)';
-    ctx.font      = '9px "Courier Prime", monospace';
-    ctx.textAlign = 'left';
-    ctx.fillText(lat + '°N', pp1.x + 4, pp1.y - 3);
-  }
-}
-
-// dessin de la carte
-function dessinerContourEurope() {
-  var ctx = etat.contexte;
-  var W   = etat.largeur;
-  var H   = etat.hauteur;
-
-  // Points de contour de l'europe occidentale (très approximatif mais nécessaire pour pouvoir bien gérer les animations)
-  var contour = [
-    [71, 28],  // Cap Nord (Norvège)
-    [70, 18],
-    [65, 14],  // Norvège côte ouest
-    [62, 5],
-    [58, 5],   // Scandinavie sud
-    [55, 8],   // Danemark
-    [54, 10],
-    [52, 4],   // Pays-Bas
-    [51, 2],   // Belgique/Nord France
-    [48, -5],  // Bretagne
-    [43, -9],  // Nord Portugal
-    [36, -9],  // Portugal sud
-    [36, -6],
-    [36, -5],  // Détroit de Gibraltar
-    [36, 2],   // Espagne est
-    [41, 3],   // Barcelone
-    [43, 5],   // Côte d'Azur
-    [44, 8],   // Gênes
-    [44, 12],  // Adriatique
-    [40, 18],
-    [37, 15],  // Sicile
-    [37, 23],  // Grèce
-    [40, 26],
-    [41, 29],  // Istanbul
-    [42, 35],  // Mer Noire
-    [46, 30],
-    [47, 24],  // Carpates
-    [50, 24],
-    [54, 18],  // Pologne
-    [56, 21],  // Pays Baltes
-    [60, 24],  // Finlande
-    [65, 25],
-    [70, 28],
-    [71, 28]   // retour Nord
-  ];
-
-  ctx.beginPath();
-  var premier = geoVersPixel(contour[0][0], contour[0][1], W, H);
-  ctx.moveTo(premier.x, premier.y);
-  for (var i = 1; i < contour.length; i++) {
-    var pt = geoVersPixel(contour[i][0], contour[i][1], W, H);
-    ctx.lineTo(pt.x, pt.y);
-  }
-  ctx.closePath();
-
-  // remplissage plus clair
-  var gradTerre = ctx.createLinearGradient(0, 0, W, H);
-  gradTerre.addColorStop(0, 'rgba(40, 30, 15, 0.55)');
-  gradTerre.addColorStop(1, 'rgba(28, 20, 8, 0.55)');
-  ctx.fillStyle   = gradTerre;
-  ctx.fill();
-
-  // Contour doré
-  ctx.strokeStyle = 'rgba(139, 100, 40, 0.5)';
-  ctx.lineWidth   = 1.2;
-  ctx.stroke();
-}
-
-// Dessin des points des villes
-function dessinerVilles(t) {
-  var ctx = etat.contexte;
-  var W   = etat.largeur;
-  var H   = etat.hauteur;
-
-  VILLES.forEach(function(ville) {
-    var pos = geoVersPixel(ville.lat, ville.lon, W, H);
-
-    // Cercle simple
-    ctx.beginPath();
-    ctx.arc(pos.x, pos.y, 5, 0, Math.PI * 2);
-    ctx.fillStyle = ville.couleur;
-    ctx.fill();
-
-    // Etiquette
-    ctx.fillStyle = ville.couleur;
-    ctx.font = '12px "Playfair Display", Georgia, serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(ville.nom, pos.x, pos.y - 10);
-  });
-}
-
-// Événements
-
-function villeSousCurseur(x, y) {
-  var W = etat.largeur;
-  var H = etat.hauteur;
-  var rayon = 22; // zone de clic en pixels
-
-  for (var i = 0; i < VILLES.length; i++) {
-    var v   = VILLES[i];
-    var pos = geoVersPixel(v.lat, v.lon, W, H);
-    var dx  = x - pos.x;
-    var dy  = y - pos.y;
-    if (Math.sqrt(dx * dx + dy * dy) < rayon) return v;
-  }
-  return null;
-}
-
-function gererSurvol(e) {
-  var rect = etat.canvas.getBoundingClientRect();
-  var x    = e.clientX - rect.left;
-  var y    = e.clientY - rect.top;
-
-  curseur.x = e.clientX;
-  curseur.y = e.clientY;
-  curseur.visible = true;
-
-  var ville = villeSousCurseur(x, y);
-  etat.villeActive = ville;
-
-  if (ville) {
-    etat.canvas.style.cursor = 'pointer';
-    afficherTooltip(ville, e.clientX, e.clientY);
-    mettreAJourHUD(ville);
-  } else {
-    etat.canvas.style.cursor = 'crosshair';
-    cacherTooltip();
-    mettreAJourHUD(null, x, y);
-  }
-}
-
-function gererClic(e) {
-  var rect = etat.canvas.getBoundingClientRect();
-  var x    = e.clientX - rect.left;
-  var y    = e.clientY - rect.top;
-  var ville = villeSousCurseur(x, y);
-
-  if (ville) {
-    declencherTransition(ville);
-  }
-}
-
-function gererSortie() {
-  curseur.visible  = false;
-  etat.villeActive = null;
-  cacherTooltip();
+function mettreAJourCarteGeo() {
+    dessinerContourSVG();
+    positionnerVilles();
 }
 
 // TOOLTIP
-function afficherTooltip(ville, clientX, clientY) {
-  var tooltip = document.getElementById('tooltip-ville');
+// ==========================
 
-  document.getElementById('tt-nom').textContent    = ville.nom;
-  document.getElementById('tt-pays').textContent   = ville.pays;
-  document.getElementById('tt-oeuvre').textContent = ville.oeuvre;
-  document.getElementById('tt-auteur').textContent = ville.auteur;
+function initialiserTooltips() {
 
-  // Positionnement : au-dessus du curseur, éviter les bords
-  var tx = clientX - 80;
-  var ty = clientY - 160;
-  if (tx < 10) tx = 10;
-  if (ty < 10) ty = clientY + 20;
-  if (tx + 200 > window.innerWidth) tx = window.innerWidth - 210;
+    var villes =
+        document.querySelectorAll('.ville');
 
-  tooltip.style.left = tx + 'px';
-  tooltip.style.top  = ty + 'px';
-  tooltip.classList.add('visible');
+    var tooltip =
+        document.getElementById('tooltip-ville');
+
+    villes.forEach(function(ville) {
+
+        ville.addEventListener(
+            'mousemove',
+            function(e) {
+
+                document.getElementById('tt-nom')
+                    .textContent =
+                    ville.dataset.nom;
+
+                document.getElementById('tt-pays')
+                    .textContent =
+                    ville.dataset.pays;
+
+                document.getElementById('tt-oeuvre')
+                    .textContent =
+                    ville.dataset.oeuvre;
+
+                document.getElementById('tt-auteur')
+                    .textContent =
+                    ville.dataset.auteur;
+
+                tooltip.style.left =
+                    (e.clientX + 20) + 'px';
+
+                tooltip.style.top =
+                    (e.clientY - 120) + 'px';
+
+                tooltip.classList.add('visible');
+            }
+        );
+
+        ville.addEventListener(
+            'mouseleave',
+            function() {
+                tooltip.classList.remove('visible');
+            }
+        );
+
+    });
+
 }
 
-function cacherTooltip() {
-    document.getElementById('tooltip-ville').classList.remove('visible');
-}
+// ==========================
+// CHARGEMENT
+// ==========================
 
-// coordonnées
-function mettreAJourHUD(ville, x, y) {
-  if (ville) {
-    document.getElementById('hud-lat').textContent = latVersString(ville.lat);
-    document.getElementById('hud-lon').textContent = lonVersString(ville.lon);
-    document.getElementById('ville-active-nom').textContent = ville.nom.toUpperCase();
-  } else if (x !== undefined && y !== undefined) {
-    var W   = etat.largeur;
-    var H   = etat.hauteur;
-    var lon = CARTE.lonMin + (x / W) * (CARTE.lonMax - CARTE.lonMin);
-    var lat = CARTE.latMax - (y / H) * (CARTE.latMax - CARTE.latMin);
-    document.getElementById('hud-lat').textContent = latVersString(lat);
-    document.getElementById('hud-lon').textContent = lonVersString(lon);
-    document.getElementById('ville-active-nom').textContent = '—';
-  }
-}
+function appliquerStyleCarte() {
 
-function declencherTransition(ville) {
-  var overlay = document.getElementById('overlay-transition');
-  document.getElementById('transition-nom-ville').textContent = ville.nom;
+    var carte = document.getElementById('carte');
+    if (!carte) {
+        return;
+    }
 
-  // Fondu entrant
-  overlay.classList.add('actif');
+    carte.style.background = 'radial-gradient(circle at 45% 32%, rgba(196, 163, 90, 0.18), rgba(10, 8, 3, 0.96) 72%)';
 
-  // Navigation après 700ms
-  setTimeout(function() {
-      window.location.href = ville.url;
-  }, 700);
-}
+    var contour = document.querySelector('#europe-svg .europe-contour');
+    if (contour) {
+        contour.style.fill = 'rgba(28, 20, 8, 0.55)';
+        contour.style.stroke = 'rgba(139, 100, 40, 0.5)';
+        contour.style.strokeWidth = '3';
+        contour.style.strokeLinejoin = 'round';
+        contour.style.filter = 'drop-shadow(0 18px 40px rgba(0, 0, 0, 0.22))';
+    }
 
-// Boucle d'animation principale (requestAnimationFrame)
+    document.querySelectorAll('.ville').forEach(function(ville) {
+        var couleur = ville.dataset.couleur || '#c4a35a';
+        var point = ville.querySelector('.point');
+        if (point) {
+            point.style.width = '16px';
+            point.style.height = '16px';
+            point.style.background = couleur;
+            point.style.border = '2px solid rgba(139, 26, 26, 0.9)';
+            point.style.boxShadow = '0 0 0 6px rgba(196, 163, 90, 0.18)';
+        }
+    });
 
-function boucleAnimation(timestamp) {
-  // Ne rien faire si pas de contexte (pas sur la page carte)
-  if (!etat.contexte) return;
-  
-  if (!etat.tempsDebut) etat.tempsDebut = timestamp;
-  var t = (timestamp - etat.tempsDebut) / 1000; // temps en secondes
-
-  var ctx = etat.contexte;
-  ctx.clearRect(0, 0, etat.largeur, etat.hauteur);
-
-  dessinerFond(t);
-  dessinerContourEurope();
-  dessinerVilles(t);
-
-  requestAnimationFrame(boucleAnimation);
 }
 
 function demarrerChargement() {
-  // Ne rien faire si pas de canvas (pas sur la page carte)
-  if (!etat.canvas) return;
-  
-  setTimeout(function() {
-    var ecran = document.getElementById('ecran-chargement');
-    var conteneur = document.getElementById('carte-conteneur');
 
-    ecran.classList.add('masque');
-    conteneur.classList.add('visible');
-    etat.chargementTermine = true;
+    setTimeout(function() {
 
-    etat.canvas.addEventListener('mousemove', gererSurvol);
-    etat.canvas.addEventListener('click',     gererClic);
-    etat.canvas.addEventListener('mouseleave', gererSortie);
+        document
+            .getElementById('ecran-chargement')
+            .classList
+            .add('masque');
 
-  }, 2600);
+        document
+            .getElementById('carte-conteneur')
+            .classList
+            .add('visible');
+
+    }, 2600);
+
 }
 
 // MONTRER / MASQUER
@@ -500,11 +321,16 @@ function initialiserBlocsExtensibles() {
   });
 }
 
-// Initialisation globale au chargement de la page (chargement compet du DOM)
+// ==========================
+// INITIALISATION
+// ==========================
+
 document.addEventListener('DOMContentLoaded', function() {
-    initialiserCanvas();
-    requestAnimationFrame(boucleAnimation);
-    demarrerChargement();
     initialiserBlocsExtensibles();
     initialiserPopups();
-})
+    appliquerStyleCarte();
+    demarrerChargement();
+    initialiserTooltips();
+    mettreAJourCarteGeo();
+    window.addEventListener('resize', mettreAJourCarteGeo);
+});
