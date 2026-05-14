@@ -729,7 +729,8 @@ body.page-carte {
     border: 2px solid #8b1a1a;
     box-shadow: 0 0 0 4px rgba(196, 163, 90, 0.18);
 }
-    .ville .label {
+
+.ville .label {
     display: none;
     font-family: 'Courier Prime', monospace;
     font-size: 0.7rem;
@@ -738,12 +739,13 @@ body.page-carte {
     color: #f5e8c8;
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
     white-space: nowrap;
-    }
-    .ville:hover .label {
-    display: inline-block;
-    }
+}
 
-    #titre-carte {
+.ville:hover .label {
+    display: inline-block;
+}
+
+#titre-carte {
     position: absolute;
     bottom: 2.5rem;
     left: 50%;
@@ -753,8 +755,9 @@ body.page-carte {
     opacity: 0;
     animation: monteeDouce 1s ease 3s forwards;
     z-index: 10;
-    }
-    #titre-carte h1 {
+}
+
+#titre-carte h1 {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.5rem;
     font-style: italic;
@@ -763,39 +766,43 @@ body.page-carte {
     letter-spacing: 0.08em;
     text-shadow: 0 0 40px rgba(196, 163, 90, 0.4);
     margin-bottom: 0.3rem;
-    }
-    #titre-carte p {
+}
+
+#titre-carte p {
     font-family: 'Courier Prime', monospace;
     font-size: 0.65rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: #5a4a2a;
     margin: 0;
-    }
-    @keyframes monteeDouce {
+}
+
+@keyframes monteeDouce {
     from { opacity: 0; transform: translateX(-50%) translateY(12px); }
     to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
+}
 
-    #tooltip-ville {
+#tooltip-ville {
     position: fixed;
     pointer-events: none;
     z-index: 200;
     opacity: 0;
     transition: opacity 0.2s ease;
-    }
-    #tooltip-ville.visible {
+}
+
+#tooltip-ville.visible {
     opacity: 1;
 }
 
-    .tooltip-interieur {
+.tooltip-interieur {
     background: rgba(10, 8, 3, 0.95);
     border: 1px solid #c4a35a;
     padding: 0.8rem 1.2rem;
     min-width: 160px;
     position: relative;
-    }
-    .tooltip-interieur::before {
+}
+
+.tooltip-interieur::before {
     content: '';
     position: absolute;
     bottom: -6px;
@@ -806,35 +813,40 @@ body.page-carte {
     border-right: 1px solid #c4a35a;
     border-bottom: 1px solid #c4a35a;
     transform: rotate(45deg);
-    }
-    .tooltip-ville-nom {
+}
+
+.tooltip-ville-nom {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1rem;
     font-style: italic;
     color: #c4a35a;
     margin-bottom: 0.2rem;
-    }
-    .tooltip-ville-pays {
+}
+
+.tooltip-ville-pays {
     font-family: 'Courier Prime', monospace;
     font-size: 0.65rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: #5a4a2a;
     margin-bottom: 0.5rem;
-    }
-    .tooltip-ville-oeuvre {
+}
+
+.tooltip-ville-oeuvre {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 0.85rem;
     font-style: italic;
     color: #a08060;
     margin-bottom: 0.1rem;
-    }
-    .tooltip-ville-auteur {
+}
+
+.tooltip-ville-auteur {
     font-family: 'Courier Prime', monospace;
     font-size: 0.65rem;
     color: #5a4a2a;
-    }
-    .tooltip-clic-hint {
+}
+
+.tooltip-clic-hint {
     font-family: 'Courier Prime', monospace;
     font-size: 0.6rem;
     letter-spacing: 0.1em;
@@ -843,4 +855,116 @@ body.page-carte {
     margin-top: 0.6rem;
     border-top: 1px solid #2a2010;
     padding-top: 0.4rem;
-    }
+}
+
+.formulaire-style {
+    background-color: var(--couleur-carte);
+    border: 1px solid var(--couleur-bordure);
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.formulaire-style h3 {
+    margin-bottom: 1.5rem;
+    color: var(--couleur-accent);
+}
+
+.champ-groupe {
+    margin-bottom: 1.5rem;
+}
+
+.champ-groupe label {
+    display: block;
+    font-family: var(--police-code);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--couleur-texte-secondaire);
+    margin-bottom: 0.5rem;
+}
+
+.champ-groupe input[type="text"],
+.champ-groupe input[type="email"],
+.champ-groupe select,
+.champ-groupe textarea {
+    width: 100%;
+    background-color: var(--couleur-fond);
+    border: 1px solid var(--couleur-bordure);
+    color: var(--couleur-texte);
+    font-family: var(--police-corps);
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+    outline: none;
+    transition: border-color var(--transition);
+}
+
+.champ-groupe input:focus,
+.champ-groupe select:focus,
+.champ-groupe textarea:focus {
+    border-color: var(--couleur-accent);
+}
+
+.champ-groupe textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.champ-radio {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.champ-radio label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: var(--police-corps);
+    font-size: 1rem;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--couleur-texte);
+    cursor: pointer;
+}
+
+.btn-soumettre {
+    background-color: var(--couleur-accent);
+    color: var(--couleur-fond);
+    border: none;
+    font-family: var(--police-code);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.8rem 2rem;
+    cursor: pointer;
+    transition: opacity var(--transition);
+}
+
+.btn-soumettre:hover {
+    opacity: 0.85;
+}
+
+.message-reponse {
+    margin-top: 1rem;
+    padding: 0.8rem 1.2rem;
+    border-left: 4px solid var(--couleur-accent);
+    font-style: italic;
+    background-color: var(--couleur-fond-secondaire);
+    display: none;
+}
+
+.message-reponse.visible {
+    display: block;
+}
+
+.message-reponse.correct {
+    border-color: #2a6a2a;
+    background-color: #e8f5e8;
+    color: #1a4a1a;
+}
+
+.message-reponse.incorrect {
+    border-color: #8b1a1a;
+    background-color: #fdf0f0;
+    color: #5a0a0a;
+}

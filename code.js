@@ -255,6 +255,55 @@ function demarrerChargement() {
 
 }
 
+// FORMULAIRE
+
+function validerReponseQuiz(idChamp, idMessage, bonneReponse) {
+  var champ   = document.getElementById(idChamp);
+  var message = document.getElementById(idMessage);
+  if (!champ || !message) return;
+
+  var rep = champ.value.trim().toLowerCase();
+  message.classList.add('visible');
+  message.classList.remove('correct', 'incorrect');
+
+  if (rep === '') {
+    message.textContent = 'Merci de saisir une réponse avant de valider.';
+    return;
+  }
+  if (rep === bonneReponse.toLowerCase()) {
+    message.classList.add('correct');
+    message.textContent = '✓ Bonne réponse !';
+  } else {
+    message.classList.add('incorrect');
+    message.textContent = '✗ Mauvaise réponse. Consultez les pages du site pour trouver la réponse.';
+  }
+
+}
+
+function validerQCM(nomGroupe, idMessage, valeurCorrecte) {
+  var radios  = document.querySelectorAll('input[name="' + nomGroupe + '"]');
+  var message = document.getElementById(idMessage);
+  if (!message) return;
+
+  var selection = null;
+  radios.forEach(function(r) { if (r.checked) selection = r.value; });
+
+  message.classList.add('visible');
+  message.classList.remove('correct', 'incorrect');
+
+  if (selection === null) {
+    message.textContent = 'Veuillez choisir une réponse.';
+    return;
+  }
+  if (selection === valeurCorrecte) {
+    message.classList.add('correct');
+    message.textContent = '✓ Exact ! Bonne réponse.';
+  } else {
+    message.classList.add('incorrect');
+    message.textContent = '✗ Pas tout à fait — relisez les pages correspondantes.';
+  }
+}
+
 // MONTRER / MASQUER
 
 function basculerBloc(bouton) {

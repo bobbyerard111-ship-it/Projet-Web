@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz · Littérature & Villes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="overlay-popup" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="popup-titre">
+    <div id="popup-contenu">
+      <p class="surtitre">Défi littéraire</p>
+      <h2 id="popup-titre">Quiz</h2>
+      <p>Avez-vous bien lu ? Testez vos connaissances sur les trois œuvres et leurs villes.</p>
+      <button id="btn-fermer-popup">Commencer</button>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <p class="surtitre">Défi littéraire</p>
+    <h1>Quiz<span>littéraire</span></h1>
+    <p class="sous-titre-header">Testez vos connaissances sur les trois œuvres et leurs villes</p>
+  </header>
+
+  <main>
+
+    <!-- CONSIGNES -->
+    <section aria-labelledby="titre-consignes" class="encadre mb-3">
+      <h2 id="titre-consignes">Comment jouer ?</h2>
+      <ul class="liste-style">
+        <li>Le quiz comporte des questions à choix multiples et des réponses libres.</li>
+        <li>Cliquez sur « Valider » après chaque question pour connaître la réponse.</li>
+        <li>Consultez les <a href="glossaire.html">définitions du glossaire</a> en cas de doute.</li>
+        <li>Les pages <a href="moscou.html">Moscou</a>, <a href="saint-petersbourg.html">Saint-Pétersbourg</a> et <a href="dublin.html">Dublin</a> contiennent toutes les réponses.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="titre-q1">
+      <h2 id="titre-q1">Question 1</h2>
+      <div class="formulaire-style">
+        <h3>Dans quelle ville Woland et sa suite sèment-ils le chaos ?</h3>
+
+        <div class="champ-groupe">
+          <div class="champ-radio" role="radiogroup" aria-labelledby="titre-q1">
+            <label>
+              <input type="radio" name="q1" value="saint-petersbourg" />
+              Saint-Pétersbourg
+            </label>
+            <label>
+              <input type="radio" name="q1" value="moscou" />
+              Moscou
+            </label>
+            <label>
+              <input type="radio" name="q1" value="dublin" />
+              Dublin
+            </label>
+            <label>
+              <input type="radio" name="q1" value="varsovie" />
+              Varsovie
+            </label>
+          </div>
+        </div>
+
+        <button class="btn-soumettre" onclick="validerQCM('q1', 'rep-q1', 'moscou')">
+          Valider ma réponse
+        </button>
+        <div id="rep-q1" class="message-reponse" role="alert"></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="titre-q2">
+      <h2 id="titre-q2">Question 2</h2>
+      <div class="formulaire-style">
+        <h3>Quel est le prénom du protagoniste de <em>Crime et Châtiment</em> ?</h3>
+        <p style="color:var(--couleur-texte-secondaire); font-style:italic;">
+          Indice : il s'agit d'un étudiant pauvre habitant Saint-Pétersbourg. Répondez en français.
+        </p>
+
+        <div class="champ-groupe">
+          <label for="rep-q2-input">Votre réponse :</label>
+          <input type="text" id="rep-q2-input" placeholder="Saisissez le prénom…" autocomplete="off" />
+        </div>
+
+        <button class="btn-soumettre"
+          onclick="validerReponseQuiz('rep-q2-input', 'rep-q2', 'rodion')">
+          Valider ma réponse
+        </button>
+        <div id="rep-q2" class="message-reponse" role="alert"></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="titre-q3">
+      <h2 id="titre-q3">Question 3</h2>
+      <div class="formulaire-style">
+        <h3>Le 16 juin est une date importante pour <em>Ulysse</em> de Joyce. Pourquoi ?</h3>
+
+        <div class="champ-groupe">
+          <div class="champ-radio" role="radiogroup" aria-labelledby="titre-q3">
+            <label>
+              <input type="radio" name="q3" value="naissance" />
+              C'est la date de naissance de James Joyce
+            </label>
+            <label>
+              <input type="radio" name="q3" value="action" />
+              C'est la date à laquelle se déroule toute l'action du roman
+            </label>
+            <label>
+              <input type="radio" name="q3" value="publication" />
+              C'est la date de publication du roman à Paris
+            </label>
+            <label>
+              <input type="radio" name="q3" value="mort" />
+              C'est la date de la mort de Joyce
+            </label>
+          </div>
+        </div>
+
+        <button class="btn-soumettre" onclick="validerQCM('q3', 'rep-q3', 'action')">
+          Valider ma réponse
+        </button>
+        <div id="rep-q3" class="message-reponse" role="alert"></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="titre-q4">
+      <h2 id="titre-q4">Question 4</h2>
+      <div class="formulaire-style">
+        <h3>Quel animal accompagne Woland dans <em>Le Maître et Marguerite</em> ?</h3>
+        <p style="color:var(--couleur-texte-secondaire); font-style:italic;">
+          Répondez par le nom de l'animal en français (en minuscules).
+        </p>
+
+        <div class="champ-groupe">
+          <label for="rep-q4-input">Votre réponse :</label>
+          <input type="text" id="rep-q4-input" placeholder="Quel animal ?" autocomplete="off" />
+        </div>
+
+        <button class="btn-soumettre"
+          onclick="validerReponseQuiz('rep-q4-input', 'rep-q4', 'chat')">
+          Valider ma réponse
+        </button>
+        <div id="rep-q4" class="message-reponse" role="alert"></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="titre-q5">
+      <h2 id="titre-q5">Question 5</h2>
+      <div class="formulaire-style">
+        <h3>Qui publia <em>Ulysse</em> de Joyce pour la première fois en 1922 ?</h3>
+
+        <div class="champ-groupe">
+          <div class="champ-radio" role="radiogroup" aria-labelledby="titre-q5">
+            <label>
+              <input type="radio" name="q5" value="gallimard" />
+              Les éditions Gallimard (Paris)
+            </label>
+            <label>
+              <input type="radio" name="q5" value="shakespeare" />
+              Sylvia Beach / Shakespeare and Company (Paris)
+            </label>
+            <label>
+              <input type="radio" name="q5" value="penguin" />
+              Penguin Books (Londres)
+            </label>
+            <label>
+              <input type="radio" name="q5" value="random" />
+              Random House (New York)
+            </label>
+          </div>
+        </div>
+
+        <button class="btn-soumettre" onclick="validerQCM('q5', 'rep-q5', 'shakespeare')">
+          Valider ma réponse
+        </button>
+        <div id="rep-q5" class="message-reponse" role="alert"></div>
+      </div>
+    </section>
+    <hr class="ligne-deco-longue" />
+  </main>
+
+  <footer id="pied-de-page">
+    <p>Projet NSI 2025–2026 · Lycée EIB Étoile · [Prénom1] [Prénom2]</p>
+  </footer>
+
+  <script src="code.js"></script>
+</body>
+</html>
