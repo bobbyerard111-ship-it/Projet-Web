@@ -463,6 +463,82 @@ blockquote cite {
     justify-content: center;
 }
 
+/* Boîte générale */
+.carousel{
+    position:relative;
+    width:70%;
+    margin:2rem auto;
+    padding:2rem;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+/* Slides */
+.slide{
+    display:none;
+    padding:1rem;
+    min-height:120px;
+    text-align:center;
+    font-size:1.1rem;
+    line-height:1.6;
+    font-style:italic;
+}
+
+/* Slide visible */
+.slide.active{
+    display:block;
+}
+
+/* Boutons */
+button{
+    margin-top:1rem;
+    padding:0.5rem 1rem;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:1rem;
+    background:#b1bc62;
+}
+
+/* Hover boutons */
+button:hover{
+    transform:scale(1.05);
+    background:#3A4047;
+}
+
+/* Couleurs citations */
+.slide:nth-child(1){
+    color:#8FA6B8;
+}
+
+.slide:nth-child(2){
+    color:#CBB89A;
+}
+
+.slide:nth-child(3){
+    color:#A86565;
+}
+
+.slide:nth-child(4){
+    color:#8B79A8;
+}
+
+.slide:nth-child(5){
+    color:#9FA8B0;
+}
+
+.slide:nth-child(6){
+    color:#8A5A63;
+}
+
+.fond-ecran{
+    width:120px;
+    height:auto;
+    cursor:pointer;
+    opacity:0.6; /* pour fond d'écran page principale */
+    transition:0.3s;
+    margin:0.5rem;
+
 @keyframes fondu {
     from {
         opacity: 0;
