@@ -531,21 +531,13 @@ button:hover{
     color:#8A5A63;
 }
 
-/* Style pour les miniatures cliquables */
-.fond-ecran {
-    width: 120px;
-    height: auto;
-    cursor: pointer;
-    opacity: 0.8; 
-    transition: 0.3s;
-    margin: 0.5rem;
-    border: 2px solid transparent;
-}
-
-.fond-ecran:hover {
-    opacity: 1;
-    transform: scale(1.1);
-    border-color: var(--couleur-accent);
+.fond-ecran{
+    width:120px;
+    height:auto;
+    cursor:pointer;
+    opacity:0.6; /* pour fond d'écran page principale */
+    transition:0.3s;
+    margin:0.5rem;
 
 @keyframes fondu {
     from {
@@ -1073,55 +1065,3 @@ body.page-carte {
 .glossaire-terme dd {color: var(--couleur-texte);
     padding-left: 1.5rem;
 }
-
-main, section { 
-    background: transparent !important; 
-}
-
-body {
-    /* On garde la transition pour la couleur mais on s'assure que l'image est prioritaire */
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-}
-
-/* On s'assure que les images de choix sont bien visibles */
-.fond-ecran {
-    display: inline-block;
-    width: 150px; /* Taille pour bien les voir */
-    height: auto;
-    border: 2px solid var(--couleur-bordure);
-    transition: transform 0.2s;
-    margin: 5px;
-}
-/* On rend les blocs transparents pour voir le fond du body */
-main, 
-.section-intro, 
-.texte-intro, 
-.carousel {
-    background-color: transparent !important;
-    background: transparent !important;
-}
-
-/* Style des miniatures */
-.fond-ecran {
-    width: 150px;
-    height: auto;
-    border: 2px solid var(--couleur-bordure);
-    margin: 10px;
-    cursor: pointer;
-}
-#fond-fixe-svg {
-    position: fixed;
-    inset: 0; /* Prend tout l'écran */
-    z-index: -999; /* Vraiment tout au fond */
-    background-color: #222; /* Si c'est gris foncé, c'est que la div est là ! */
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-}
-
-
-
