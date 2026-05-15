@@ -56,28 +56,21 @@ prevBtn.addEventListener("click", () => {
     showSlide(currentSlide);
 });
 
-// Sélectionne tous les SVG
 const wallpapers = document.querySelectorAll(".fond-ecran");
 
 wallpapers.forEach(image => {
-    // On ajoute un curseur pointeur pour montrer que c'est cliquable
-    image.style.cursor = "pointer";
-
-    image.addEventListener("click", () => {
-        const src = image.getAttribute("src");
-        console.log("Tentative de changement de fond :", src); // Pour vérifier dans la console (F12)
-
-        // On applique le style directement sur le body
-        document.body.style.backgroundImage = `url('${src}')`;
+    image.onclick = function() {
+        const src = this.getAttribute("src");
+        
+        // On change l'image de fond
+        document.body.style.backgroundImage = "url('" + src + "')";
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundPosition = "center";
         document.body.style.backgroundAttachment = "fixed";
         document.body.style.backgroundRepeat = "no-repeat";
-        
-        // IMPORTANT : On force la couleur de fond à transparent 
-        // pour que l'image soit bien visible
-        document.body.style.backgroundColor = "transparent";
-    });
+
+        console.log("Tentative d'affichage : " + src);
+    };
 });
 
 // Configuration de la carte : limites géographiques pour la projection
@@ -526,7 +519,7 @@ function restaurerTheme() {
 document.addEventListener('DOMContentLoaded', function() {
     var btnTheme = document.getElementById('btn-theme');
     if (btnTheme) {
-        btnTheme.addEventListener('click', changerTheme);;
+        btnTheme.addEventListener('click', changerTheme);
     }
     // Initialise les boutons toggle pour les blocs extensibles
     initialiserBlocsExtensibles();
@@ -542,4 +535,4 @@ document.addEventListener('DOMContentLoaded', function() {
     mettreAJourCarteGeo();
     // Ajoute un écouteur pour redessiner la carte lors du redimensionnement de la fenêtre
     window.addEventListener('resize', mettreAJourCarteGeo);
-});
+})
